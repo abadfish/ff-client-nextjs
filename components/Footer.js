@@ -9,8 +9,8 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" />
+          Powered by {' '}
+          <h3>Master Xeon</h3>
         </a>
       </Foot>
     )

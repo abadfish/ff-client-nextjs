@@ -18,4 +18,5 @@ const NavBar = styled.nav `
   display: flex;
   justify-content: space-between;
   padding: 0 .5rem;
+  background: transparent;
 `
