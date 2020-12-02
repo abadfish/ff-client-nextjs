@@ -1,12 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import Link from 'next/link'
 
 const Nav = () => {
     return (
         <NavBar>
-          <a href="/">Home</a>
-          <a href="/">Home</a>
-          <a href="/about">About</a>
+          <Link href="/"><a>Home</a></Link>
+          <Link href="/event/:slug"><a>Events</a></Link>
+          <Link href="/about"><a>About</a></Link>
         </NavBar>
     )
 }

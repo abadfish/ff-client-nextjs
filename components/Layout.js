@@ -11,6 +11,7 @@ const Layout = ({ children }) => {
   console.log(router.pathname)
   const image1 = "https://res.cloudinary.com/abadfish/image/upload/v1606864749/ffix/hot-iron-barstock.jpg"
   const image2 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on.jpg"
+  const image3 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/healthy-hoof-on-stand.jpg"
 
   const bgImage = () => {
     switch (router.pathname) {
@@ -19,14 +20,14 @@ const Layout = ({ children }) => {
       case '/about':
         return image2
       default:
-        return image1
+        return image3
     }
 
   }
     return (
         <App>
           <Head>
-            <title>Create Next App</title>
+            <title>Farrier's Fix</title>
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <AppContainer>
@@ -50,9 +51,9 @@ export default Layout
 const App = styled.div `
   min-height: 100vh;
 `
-const AppContainer = styled.div `
+const AppContainer = styled.main `
   width: 100%;
-  height: 800px;
+  height: 1000px;
   position: relative;
 `
 const PageBg = styled.div `
@@ -67,7 +68,7 @@ const PageBg = styled.div `
 const BgOverlay = styled.div `
   height: 100%;
   width: 100%;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.6);
 `
 const Main = styled.div  `
 
