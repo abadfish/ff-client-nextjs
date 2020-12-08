@@ -1,6 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components'
+import styles from '../styles/Home.module.css'
 import { useRouter } from "next/router";
-
 import Head from 'next/head'
 import Nav from './Nav'
 import Footer from './Footer'
@@ -16,11 +16,11 @@ const Layout = ({ children }) => {
   const bgImage = () => {
     switch (router.pathname) {
       case '/':
-        return image1
+        return image3
       case '/about':
         return image2
       default:
-        return image3
+        return image1
     }
 
   }
@@ -32,7 +32,7 @@ const Layout = ({ children }) => {
           </Head>
           <AppContainer>
             <PageBg layoutImage={bgImage()}>
-              <BgOverlay>
+              <BgOverlay className={styles.gradient}>
                 <Nav />
                 <Main>
 
@@ -44,6 +44,7 @@ const Layout = ({ children }) => {
           </AppContainer>
         </App>
     )
+
 }
 
 export default Layout
@@ -71,7 +72,8 @@ const BgOverlay = styled.div `
   background-color: rgba(255,255,255,0.6);
 `
 const Main = styled.div  `
-
+  color: #fff;
+  padding: 1rem;
 `
 // const Main = styled.div `
 //   padding: 5rem 0;
@@ -87,3 +89,6 @@ const Main = styled.div  `
 // flex-direction: column;
 // justify-content: space-between;
 // align-items: center;
+
+// background: rgb(255,255,255);
+// background: linear-gradient(90deg, rgba(255,255,255,0.8) 27%, rgba(255,255,255,0.4211647727272727) 66%, rgba(255,255,255,0.5) 100%);

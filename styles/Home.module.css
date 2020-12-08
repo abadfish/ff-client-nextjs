@@ -1,4 +1,24 @@
 
+.gradient {
+  /* background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,0.8) 10%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0.3) 100%); */
+  background: rgb(1,1,1);
+  background: linear-gradient(180deg, rgba(1,1,1,0.8) 10%, rgba(1,1,1,0.5) 40%, rgba(1,1,1,0.3) 100%);
+
+
+}
+.navgradient {
+  background: rgb(255,255,255);
+  background: linear-gradient(180deg, rgba(255,255,255,0.8) 10%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0) 100%);
+
+
+}
+/* <style jsx>{`
+  .gradient {
+    background: rgb(255,255,255);
+    background: linear-gradient(90deg, rgba(255,255,255,0.8) 27%, rgba(255,255,255,0.4211647727272727) 66%, rgba(255,255,255,0.5) 100%);
+  }
+`}</style> */
 
 .title a {
   color: #0070f3;
