@@ -10,8 +10,11 @@
 .navgradient {
   background: rgb(255,255,255);
   background: linear-gradient(180deg, rgba(255,255,255,0.8) 10%, rgba(255,255,255,0.5) 40%, rgba(255,255,255,0) 100%);
+}
 
-
+.homegradient {
+  background: rgb(40,42,46);
+  background: linear-gradient(180deg, rgba(40,42,46,0.8) 24%, rgba(77,84,94,0.6) 68%, rgba(166,169,174,0.6) 85%);
 }
 /* <style jsx>{`
   .gradient {

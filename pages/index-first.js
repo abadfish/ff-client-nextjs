@@ -25,20 +25,34 @@ const Home = () => {
         {/*<h3>{ data.sayHello }</h3>*/}
         <Content>
           <HomeCards>
-            <Card>
-              <h3>All Natural Ingredients</h3>
-              <p>Farriers’ Fix is made with only high quality, natural ingredients that provide vitamins A, D & E – all essential for good quality hooves.  There are no fillers in this hoof oil, each ingredient used serves a specific purpose.Competitors can also be assured that Farriers’ Fix Hoof Oil has tested negative under <strong>FEI guidelines</strong>.</p>
+            <Link href="/usage">
+              <Card>
+                <CardImageDivL>
+                  <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/healthy-hoof-on-stand.jpg"/>
+                </CardImageDivL>
+                <div>
+                  <h1>FIX</h1>
+                  <ul>
+                  <p>Soreness</p>
+                  <p>Dry, cracked hooves</p>
+                  <p>Thrush & bacteria</p>
+                  <p><a>More >></a></p>
+                  </ul>
+                </div>
+              </Card>
+            </Link>
+            <Link href="/about">
+              <Card>
+              <h1>Developed for Farriers, <br />by Farriers</h1>
+              <CardImageDivR>
+                <img src='https://res.cloudinary.com/abadfish/image/upload/v1606864749/ffix/hot-iron-barstock.jpg'/>
+              </CardImageDivR>
             </Card>
-            <Card></Card>
+            </Link>
+
           </HomeCards>
           <HomeCards>
-            <Card>Venice Turpentine:  an antiseptic that threats thrush and some of the bacteria that causes white line disease.  It also toughens the hoof, making it more resilient to adverse footing conditions.
-
-Cod Liver Oil: Helps to balance the moisture content and keep the hoof malleable. Cod liver oil is an excellent source of Vitamins A & D.
-
-Wintergreen Oil: a catalyst that helps all the ingredients penetrate the hoof capsule is very effective in drawing out soreness. And as an added benefit, it makes Farriers’ Fix smell nice!
-
-Safflower Oil: Works with the Cod Liver Oil to balance the moisture content, and contains Vitamin E.</Card>
+            <Card></Card>
             <Card></Card>
           </HomeCards>
         </Content>
@@ -67,25 +81,35 @@ const HomeCards = styled.div `
   justify-content: space-around;
   padding: 2rem 0;
 `
-
+const CardImageDivR = styled.div `
+  overflow: hidden;
+  border-radius: 0 5px 5px 0;
+`
+const CardImageDivL = styled.div `
+  overflow: hidden;
+  border-radius: 5px 0 0 5px;
+`
 const Card = styled.div `
-  width: 40vw;
-  height: 400px;
-  border: .5px solid #d3d3d3;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  width: 45vw;
+  height: 350px;
+  // border: 1px solid #d3d3d3;
   border-radius: 5px;
   background-color: rgba(255,255,255,1);
-  padding: 1rem 2rem;
+  padding: 0;
   color: #242e62;
-  text-align: left;
+  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.2), 0 1px 1px rgba(16, 22, 26, 0.2), 0 2px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 1px 1px rgba(16, 22, 26, 0.2), 0 2px 6px rgba(16, 22, 26, 0.2);
+
   transition: transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9);
   &:hover {
     cursor: pointer;
     webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   }
-  h3 {
-    font-family: 'Sorts Mill Goudy', serif;
-    font-size: 200%;
+  h1 {
+    color: #242e62;
   }
   ul {
     margin-left: 0.5rem;

@@ -24,6 +24,7 @@ const Foot = styled.footer `
   display: flex;
   justify-content: center;
   align-items: center;
+  
   img {
     margin-left: 0.5rem;
     height: 1em;
