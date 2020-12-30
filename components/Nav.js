@@ -7,11 +7,11 @@ import Link from 'next/link'
 const Nav = () => {
     return (
         <NavBar >
-          <LinkCell><Link href="/"><a>Home</a></Link></LinkCell>
-          <LinkCell><Link href="/about"><a>About</a></Link></LinkCell>
+          <LinkCell><Link href="/">Home</Link></LinkCell>
+          <LinkCell><Link href="/about">About</Link></LinkCell>
           <LogoLink src='https://res.cloudinary.com/abadfish/image/upload/v1607394173/ffix/logo_FF_white_horse_transparent_bg.png' alt='ff-logo' />
-          <LinkCell><Link href="/usage"><a>Usage</a></Link></LinkCell>
-          <LinkCell><Link href="/buy"><a>Buy</a></Link></LinkCell>
+          <LinkCell><Link href="/usage">Usage</Link></LinkCell>
+          <LinkCell><Link href="/buy">Buy</Link></LinkCell>
         </NavBar>
     )
 
@@ -32,7 +32,7 @@ const NavBar = styled.nav `
   text-transform: uppercase;
   text-align: center;
 `
-const LinkCell = styled.a `
+const LinkCell = styled.div `
   /* padding-top: 2rem; */
   line-height: 90px;
   letter-spacing: 3px;

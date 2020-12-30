@@ -1,13 +1,14 @@
 import Layout from '../components/Layout'
 import styled from 'styled-components'
 import { Page, Content } from './index'
+import HabitList from '../components/HabitList'
 
 const About = () => {
     return (
         <Layout>
           <Page>
             <Content>
-              <h1>About</h1>
+              
             </Content>
           </Page>
 

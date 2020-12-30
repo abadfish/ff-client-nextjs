@@ -9,7 +9,7 @@ const Header = (props) => {
   const image2 = "https://res.cloudinary.com/abadfish/image/upload/v1606864749/ffix/hot-iron-barstock.jpg"
   const image1 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on.jpg"
   const image3 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/healthy-hoof-on-stand.jpg"
-  const nailing = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on-cropped.jpg"
+  const nailing = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on-landscape.png"
 
   const headerImage = () => {
     switch (router.pathname) {
@@ -22,38 +22,45 @@ const Header = (props) => {
     }
   }
   return (
-    <HeaderWrapper headerImage={headerImage()}>
-      <HeaderOverlay>
-      <Nav />
-        <HeaderContainer>
-          <HeaderLeft>
-            {/*<h1 style={{ margin: 0 }}>
-              <Link href="/">
-                <img src="https://res.cloudinary.com/abadfish/image/upload/v1608771246/ffix/logo_FF_white_horse_transparent_bg.png" alt="Logo"/>
-              </Link>
-            </h1>*/}
-            <h1>Farriers' Fix</h1>
-            <h2>Hoof Oil</h2>
-            <h3>Fix sore feet and toughen hooves</h3>
-          </HeaderLeft>
-          <div></div>
-        </HeaderContainer>
-      </HeaderOverlay>
-    </HeaderWrapper>
+
+      <HeaderWrapper headerImage={headerImage()}>
+        <HeaderOverlay>
+        <Nav />
+          <HeaderContainer>
+            <HeaderLeft>
+              {/*<h1 style={{ margin: 0 }}>
+                <Link href="/">
+                  <img src="https://res.cloudinary.com/abadfish/image/upload/v1608771246/ffix/logo_FF_white_horse_transparent_bg.png" alt="Logo"/>
+                </Link>
+              </h1>*/}
+              <h1>Farriers' Fix</h1>
+              <h2>Hoof Oil</h2>
+              <h3>Fix sore feet and toughen hooves</h3>
+            </HeaderLeft>
+            <div></div>
+          </HeaderContainer>
+        </HeaderOverlay>
+      </HeaderWrapper>
+
   )
 }
 
 export default Header
 
+const HeaderComponent = styled.div `
+  height: 600px;
+  width: 100%;
+`
 // background: url("${bgImage}");
 
 const HeaderWrapper = styled.div`
-  // background-image: url("https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on-cropped.jpg");
+  // background-image: url("https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on-landscape.png");
   background-image: url(${props => props.headerImage});
   background-size: cover;
-  background-attachment: fixed;
+  // background-attachment: fixed;
   background-repeat: no-repeat;
   // background-position: center;
+  overflow: hidden;
 
   h1 {
     font-size: 600%;
@@ -94,5 +101,5 @@ const HeaderContainer = styled.div`
   grid-template-columns: 50% 50%;
 `
 const HeaderLeft = styled.div `
-  padding: 3rem;
+  padding: 1rem 3rem;
 `

@@ -11,10 +11,21 @@ const HELLO_QUERY =  gql `
     sayHello
   }
 `
+// const HELLO_QUERY =  gql `
+//   query HelloQuery {
+//     reddit {
+//       subreddit(name: "bboy") {
+//         subscribers
+//       }
+//     }
+//   }
+// `
+
 
 const Home = () => {
   const { data, loading, error } = useQuery(HELLO_QUERY)
   const [ habits, setHabits ] = useState(['Do the dishes'])
+  const [showCard, setShowCard] = useState(false)
 
   if (loading) return <div />
   console.log(data)
@@ -24,11 +35,21 @@ const Home = () => {
       <Page>
         {/*<h3>{ data.sayHello }</h3>*/}
         <Content>
+        { showCard ?
+          <LargeCard onClick={() => setShowCard(!showCard)}>
+            <h1>Ingredient List</h1>
+          </LargeCard>
+          :
+          null
+        }
           <HomeCards>
-            <Card>
+
+            <Card onClick={() => setShowCard(!showCard)}>
               <h3>All Natural Ingredients</h3>
               <p>Farriers’ Fix is made with only high quality, natural ingredients that provide vitamins A, D & E – all essential for good quality hooves.  There are no fillers in this hoof oil, each ingredient used serves a specific purpose.Competitors can also be assured that Farriers’ Fix Hoof Oil has tested negative under <strong>FEI guidelines</strong>.</p>
             </Card>
+
+
             <Card></Card>
           </HomeCards>
           <HomeCards>
@@ -67,7 +88,11 @@ const HomeCards = styled.div `
   justify-content: space-around;
   padding: 2rem 0;
 `
-
+const LargeCard = styled.div `
+  width: 80vw;
+  height: 500px;
+  position: relative;
+`
 const Card = styled.div `
   width: 40vw;
   height: 400px;

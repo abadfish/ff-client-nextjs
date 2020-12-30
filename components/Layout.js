@@ -34,7 +34,9 @@ const Layout = ({ children }) => {
             <link href="https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet" />
           </Head>
           <AppContainer>
+          <HeaderComponent>
             <Header />
+            </HeaderComponent>
             <PageBg layoutImage={bgImage()}>
             {/*<PageBg >*/}
               <BgOverlay >
@@ -61,6 +63,11 @@ const AppContainer = styled.main `
   position: relative;
   clear: both;
 `
+const HeaderComponent = styled.div `
+  height: 600px;
+  width: 100%;
+`
+
 const PageBg = styled.div `
   height: 100%;
   width: 100%;
