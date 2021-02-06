@@ -1,77 +1,54 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
-import { withApollo } from '../lib/apollo'
-import { useQuery } from '@apollo/react-hooks'
-import gql from 'graphql-tag'
 import Layout from '../components/Layout'
 
-const HELLO_QUERY =  gql `
-  query HelloQuery {
-    sayHello
-  }
-`
-// const HELLO_QUERY =  gql `
-//   query HelloQuery {
-//     reddit {
-//       subreddit(name: "bboy") {
-//         subscribers
-//       }
-//     }
-//   }
-// `
+// const fetcher = () => fetch('http://localhost:3001/api/accounts').then((res) => res.json())
 
 
 const Home = () => {
-  const { data, loading, error } = useQuery(HELLO_QUERY)
-  const [ habits, setHabits ] = useState(['Do the dishes'])
+
   const [showCard, setShowCard] = useState(false)
 
-  if (loading) return <div />
-  console.log(data)
 
   return (
     <Layout>
       <Page>
-        {/*<h3>{ data.sayHello }</h3>*/}
         <Content>
-        { showCard ?
-          <LargeCard onClick={() => setShowCard(!showCard)}>
-            <h1>Ingredient List</h1>
-          </LargeCard>
-          :
-          null
-        }
-          <HomeCards>
-
-            <Card onClick={() => setShowCard(!showCard)}>
-              <h3>All Natural Ingredients</h3>
-              <p>Farriers’ Fix is made with only high quality, natural ingredients that provide vitamins A, D & E – all essential for good quality hooves.  There are no fillers in this hoof oil, each ingredient used serves a specific purpose.Competitors can also be assured that Farriers’ Fix Hoof Oil has tested negative under <strong>FEI guidelines</strong>.</p>
-            </Card>
-
-
-            <Card></Card>
-          </HomeCards>
-          <HomeCards>
-            <Card>Venice Turpentine:  an antiseptic that threats thrush and some of the bacteria that causes white line disease.  It also toughens the hoof, making it more resilient to adverse footing conditions.
-
-Cod Liver Oil: Helps to balance the moisture content and keep the hoof malleable. Cod liver oil is an excellent source of Vitamins A & D.
-
-Wintergreen Oil: a catalyst that helps all the ingredients penetrate the hoof capsule is very effective in drawing out soreness. And as an added benefit, it makes Farriers’ Fix smell nice!
-
-Safflower Oil: Works with the Cod Liver Oil to balance the moisture content, and contains Vitamin E.</Card>
-            <Card></Card>
-          </HomeCards>
+          <PageMessage>
+            <SectionHeading>All Natural Ingredients.</SectionHeading>
+            <p>Farriers’ Fix is made with only high quality, natural ingredients that provide vitamins A, D & E – all essential for good quality hooves.  There are no fillers in this hoof oil, each ingredient used serves a specific purpose.Competitors can also be assured that Farriers’ Fix Hoof Oil has tested negative under <strong>FEI guidelines</strong>.</p>
+            <Link href="/about"><More>See the full list >></More></Link>
+          </PageMessage>
+          <CardRowLeft>
+            <Link href="/about">
+              <Card>
+                <SectionHeading>Developed by Farriers, for Farriers.</SectionHeading>
+                <p>Originally developed for use by farriers to treat common hoof problems encountered in many horses, such as soreness, thrush, soft or brittle hoof composition, founder (laminitis), quarter cracks and white line disease, Farriers' Fix was one farrier's formula.  Experiments with various ingredients to form a topical solution led to the development of what is now called Farriers’ Fix Hoof Oil. </p>
+                <More>More about Farriers' Fix origins>></More>
+              </Card>
+            </Link>
+          </CardRowLeft>
+          <CardRowRight>
+            <Link href="/usage">
+              <Card>
+                <SectionHeading>Countless Benefits.</SectionHeading>
+                <br /><br /><CardSpan><strong>FIX SORENESS </strong>
+                The unique blend of ingredients in Farriers’ Fix penetrates the hoof capsule to draw out soreness. In many cases, horses that were suffering from stone bruises or trimmed too short, were actually rideable the next day. It’s an ideal treatment for horses that are racing, jumping and working on adverse surfaces.</CardSpan>
+                <br /><br /><CardSpan><strong>FIX DRY, CRACKED HOOVES </strong>
+                Many hoof oils are petroleum or lacquer based and seal in or seal out moisture. The all natural ingredients in Farriers’ Fix balance the moisture content and allow the hoof to breathe, which is essential for a healthy hoof.</CardSpan>
+                <br /><br />
+                <More>See more benefits>></More>
+              </Card>
+            </Link>
+          </CardRowRight>
         </Content>
       </Page>
-
-
-
     </Layout>
   )
 }
 
-export default withApollo(Home)
+export default Home
 
 export const Page = styled.div `
   text-align: center;
@@ -79,62 +56,74 @@ export const Page = styled.div `
 `
 export const Content = styled.div `
   width: 100%;
-  padding: 2rem 0;
+  // padding: 2rem 0;
 
 `
-const HomeCards = styled.div `
+export const More = styled.span `
+  font-size: 150%;
+  font-weight: 600;
+  padding-top: .7rem;
+  color: #739ac5;
+`
+export const PageMessage = styled.div `
+  width: 100%;
+  min-height: 300px;
+  background: #f3f3f3;
+  color: #242e62;
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: left;
+  &:hover {
+    cursor: pointer;
+  }
+  p {
+    font-size: 150%;
+  }
+`
+export const SectionHeading = styled.span `
+  font-family: 'Sorts Mill Goudy', serif;
+  text-align: left;
+  font-size: 200%;
+  font-weight: 600;
+`
+const CardSpan = styled.span `
+  font-size: 125%;
+  margin-top: 1rem;
+`
+export const CardRowRight = styled.div `
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-  padding: 2rem 0;
+  justify-content: flex-end;
 `
-const LargeCard = styled.div `
-  width: 80vw;
-  height: 500px;
-  position: relative;
+export const CardRowLeft = styled.div `
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 `
-const Card = styled.div `
-  width: 40vw;
-  height: 400px;
-  border: .5px solid #d3d3d3;
-  border-radius: 5px;
+export const Card = styled.div `
+  width: 50%;
+  min-height: 500px;
   background-color: rgba(255,255,255,1);
-  padding: 1rem 2rem;
+  padding: 4rem;
   color: #242e62;
   text-align: left;
-  transition: transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9);
+  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  /* transition: transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9); */
   &:hover {
     cursor: pointer;
     webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   }
-  h3 {
-    font-family: 'Sorts Mill Goudy', serif;
-    font-size: 200%;
-  }
-  ul {
-    margin-left: 0.5rem;
-  }
   p {
     font-size: 150%;
-    // font-weight: bold;
     text-align: left;
   }
-  img {
-    width: 200%;
-    margin-left: 50%;
-    transform: translateX(-50%);
-  }
 `
-const Headline = styled.h1 `
-  font-size: 500%;
-  font-weight: 400;
-  color: #242e62;
-`
-
-const Subhead = styled.h3  `
-  font-size: 300%;
-  font-weight: 400;
-  color: #282a2e;
-  text-transform: uppercase;
-`
+// img {
+//   width: 200%;
+//   margin-left: 50%;
+//   transform: translateX(-50%);
+// }

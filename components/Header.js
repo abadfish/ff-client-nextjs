@@ -2,6 +2,7 @@ import Nav from './Nav'
 import styled, { createGlobalStyle } from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from "next/router";
+import HeaderSubComponent from './HeaderSubComponent'
 
 const Header = (props) => {
 
@@ -10,37 +11,66 @@ const Header = (props) => {
   const image1 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on.jpg"
   const image3 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/healthy-hoof-on-stand.jpg"
   const nailing = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on-landscape.png"
+  const walking = "https://res.cloudinary.com/abadfish/image/upload/v1612571156/ffix/horse_walking.jpg"
 
-  const headerImage = () => {
+  const headerContent = () => {
     switch (router.pathname) {
       case '/':
-        return nailing
+        return {
+          image: nailing,
+          heading: "Farriers' Fix",
+          subHeading: "Hoof Oil",
+          tagLine: "Fix sore feet and toughen hooves",
+          subComponent: null
+        }
       case '/about':
-        return image2
+        return {
+          image: image2,
+          heading: "Farriers' Fix",
+          subHeading: "Ingredients & Origins",
+          tagLine: "...and who is using Farriers' Fix",
+          subComponent: <HeaderSubComponent />
+        }
+      case '/buy':
+        return {
+          image: walking,
+          heading: "Farriers' Fix",
+          subHeading: "Where To Find It",
+          tagLine: null,
+          subComponent: null
+        }
       default:
-        return image3
+        return {
+          image: image3,
+          heading: "Farriers' Fix",
+          subHeading: "Benefits & Usage",
+          tagLine: "All natural, for health and healing",
+          subComponent: null
+        }
     }
   }
-  return (
 
-      <HeaderWrapper headerImage={headerImage()}>
+  const headerText = () => {
+
+  }
+  return (
+    <HeaderComponent>
+      <HeaderWrapper headerImage={headerContent().image}>
         <HeaderOverlay>
         <Nav />
           <HeaderContainer>
             <HeaderLeft>
-              {/*<h1 style={{ margin: 0 }}>
-                <Link href="/">
-                  <img src="https://res.cloudinary.com/abadfish/image/upload/v1608771246/ffix/logo_FF_white_horse_transparent_bg.png" alt="Logo"/>
-                </Link>
-              </h1>*/}
-              <h1>Farriers' Fix</h1>
-              <h2>Hoof Oil</h2>
-              <h3>Fix sore feet and toughen hooves</h3>
+              <h1>{headerContent().heading}</h1>
+              <h2>{headerContent().subHeading}</h2>
+              <h3>{headerContent().tagLine}</h3>
             </HeaderLeft>
-            <div></div>
+            <HeaderRight>
+              {headerContent().subComponent}
+            </HeaderRight>
           </HeaderContainer>
         </HeaderOverlay>
       </HeaderWrapper>
+      </HeaderComponent >
 
   )
 }
@@ -48,19 +78,23 @@ const Header = (props) => {
 export default Header
 
 const HeaderComponent = styled.div `
-  height: 600px;
   width: 100%;
+  clear: both;
+  position: relative;
+  -webkit-box-shadow: -1px 9px 10px -1px rgba(0,0,0,0.58);
+  box-shadow: -1px 9px 10px -1px rgba(0,0,0,0.58);
+  z-index: 100;
 `
-// background: url("${bgImage}");
+
 
 const HeaderWrapper = styled.div`
-  // background-image: url("https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on-landscape.png");
   background-image: url(${props => props.headerImage});
   background-size: cover;
   // background-attachment: fixed;
   background-repeat: no-repeat;
   // background-position: center;
   overflow: hidden;
+
 
   h1 {
     font-size: 600%;
@@ -69,7 +103,6 @@ const HeaderWrapper = styled.div`
     margin-bottom: 0;
     img {
       height: 175px;
-      // padding-left: 2rem;
     }
   }
   h2 {
@@ -89,7 +122,7 @@ const HeaderWrapper = styled.div`
 const HeaderOverlay = styled.div `
   height: 100%;
   width: 100%;
-  background-color: rgba(3,3,3, 0.7);
+  background-color: rgba(3,3,3, 0.5);
 `
 const HeaderContainer = styled.div`
   margin: 0 auto;
@@ -101,5 +134,8 @@ const HeaderContainer = styled.div`
   grid-template-columns: 50% 50%;
 `
 const HeaderLeft = styled.div `
+  padding: 1rem 3rem;
+`
+const HeaderRight = styled.div `
   padding: 1rem 3rem;
 `
