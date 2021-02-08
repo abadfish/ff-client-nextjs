@@ -81,8 +81,8 @@ const HeaderComponent = styled.div `
   width: 100%;
   clear: both;
   position: relative;
-  -webkit-box-shadow: -1px 9px 10px -1px rgba(0,0,0,0.58);
-  box-shadow: -1px 9px 10px -1px rgba(0,0,0,0.58);
+  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   z-index: 100;
 `
 

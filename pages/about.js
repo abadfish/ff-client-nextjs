@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
-import { Page, Content, PageMessage, SectionHeading, CardRowLeft, More } from './index'
+import { Page, Content, PageMessage, SectionHeading, CardRowLeft, CardRowRight, More } from './index'
 
 export async function getEndorsementsData() {
   const res = await fetch('http://localhost:3001/api/endorsements')
@@ -49,7 +49,7 @@ const About = ({endorsementData}) => {
                   </AboutCard>
 
               </CardRowLeft>
-              <CardRowLeft>
+              <CardRowRight>
 
                   <AboutCard>
                     <SectionHeading>Paul Heller, Farrier</SectionHeading>
@@ -59,7 +59,7 @@ const About = ({endorsementData}) => {
                     <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/paul2.jpg" alt='Paul Heller shoeing'/>
                   </AboutCard>
 
-              </CardRowLeft>
+              </CardRowRight>
               <EndorsementCard>
                 { endorsementsNoQuote }
               </EndorsementCard>
@@ -73,18 +73,21 @@ const About = ({endorsementData}) => {
 
 export default About
 
-const AboutCard = styled.div `
+export const AboutCard = styled.div `
   width: 50%;
-  min-height: 500px;
+  min-height: 450px;
   background-color: rgba(255,255,255,1);
   padding: 3rem;
   color: #242e62;
   text-align: left;
   p {
-    font-size: 150%;
+    font-size: 130%;
     text-align: left;
   }
   img {
+    position: relative;
+    width: 100%;
+    height: auto;
     webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   }

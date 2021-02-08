@@ -17,7 +17,8 @@ const Home = () => {
         <Content>
           <PageMessage>
             <SectionHeading>All Natural Ingredients.</SectionHeading>
-            <p>Farriers’ Fix is made with only high quality, natural ingredients that provide vitamins A, D & E – all essential for good quality hooves.  There are no fillers in this hoof oil, each ingredient used serves a specific purpose.Competitors can also be assured that Farriers’ Fix Hoof Oil has tested negative under <strong>FEI guidelines</strong>.</p>
+            <p>Farriers’ Fix is made with only high quality, natural ingredients that provide vitamins A, D & E – all essential for good quality hooves.  There are no fillers in this hoof oil, each ingredient used serves a specific purpose.
+            Competitors can also be assured that Farriers’ Fix Hoof Oil has tested negative under <strong><a href="https://inside.fei.org/fei/cleansport/horses" target="_blank" rel="noopener noreferrer">FEI guidelines</a></strong>.</p>
             <Link href="/about"><More>See the full list >></More></Link>
           </PageMessage>
           <CardRowLeft>
@@ -64,22 +65,30 @@ export const More = styled.span `
   font-weight: 600;
   padding-top: .7rem;
   color: #739ac5;
+  &:hover {
+    cursor: pointer;
+  }
+
 `
 export const PageMessage = styled.div `
   width: 100%;
   min-height: 300px;
   background: #f3f3f3;
   color: #242e62;
-  padding: 4rem;
+  padding: 3rem 4rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   text-align: left;
-  &:hover {
-    cursor: pointer;
-  }
   p {
-    font-size: 150%;
+    font-size: 140%;
+  }
+  a {
+    &:hover {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
   }
 `
 export const SectionHeading = styled.span `
@@ -96,11 +105,15 @@ export const CardRowRight = styled.div `
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+
 `
 export const CardRowLeft = styled.div `
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  webkit-box-shadow: 0 0 0 0px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 0px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+
 `
 export const Card = styled.div `
   width: 50%;
@@ -109,16 +122,14 @@ export const Card = styled.div `
   padding: 4rem;
   color: #242e62;
   text-align: left;
-  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-  /* transition: transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9); */
+  transition: transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9);
   &:hover {
     cursor: pointer;
     webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   }
   p {
-    font-size: 150%;
+    font-size: 130%;
     text-align: left;
   }
 `
