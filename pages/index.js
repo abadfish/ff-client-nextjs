@@ -51,11 +51,11 @@ const Home = () => {
 
 export default Home
 
-export const Page = styled.div `
+export const Page = styled.main `
   text-align: center;
   padding-bottom: 2rem;
 `
-export const Content = styled.div `
+export const Content = styled.section `
   width: 100%;
   // padding: 2rem 0;
 

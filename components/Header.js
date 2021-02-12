@@ -35,7 +35,7 @@ const Header = (props) => {
         return {
           image: walking,
           heading: "Farriers' Fix",
-          subHeading: "Where To Find It",
+          subHeading: "Where To Find Us",
           tagLine: null,
           subComponent: null
         }
