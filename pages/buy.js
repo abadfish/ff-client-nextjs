@@ -29,12 +29,19 @@ export const filterReducer = (state, action) => {
       throw new Error()
   }
 }
-
+const Map = (props) => {
+  return (
+    <div>
+      <iframe id='mini-map' title={props.location.company} src=`https://www.google.com/maps/embed/v1/place?key=${MAPS_API_KEY}&q=City+Hall,New+York,NY` />
+    </div>
+  )
+}
 
 const Buy = ({allAccountsData}) => {
 
   const [ filter, dispatchFilter ] = useReducer(filterReducer, 'ALL')
   const [ province, setProvince ] = useState('')
+  const [ selectedAccount, setSelectedAccount ] = useState(null)
 
   const chooseProvince = e => {
     setProvince(e)
@@ -51,8 +58,20 @@ const Buy = ({allAccountsData}) => {
     return false
   })
 
+  const activeProvince = (s) => {
+    if ( province === filter && s === filter ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
+  const handleShowLocation = a => {
+    setSelectedAccount(a)
+  }
+
   const accountList = filteredAccounts.map((a, i) => (
-    <AccountCard key={i}>
+    <AccountCard key={i} onClick={() => handleShowLocation(a)}>
       <div><h3>{a.company}</h3></div>
       <div>{a.address1}</div>
       <div>{a.city}, {a.state} {a.zip}</div>
@@ -60,14 +79,20 @@ const Buy = ({allAccountsData}) => {
       <Website><span>{a.website}</span></Website>
     </AccountCard>
   ))
+
   const stateList = Array.from(new Set(allAccountsData.accounts.map(a => a.state)))
     return (
         <Layout>
           <StateList>
             { stateList.map((s, i) => (
-              <span key={i} onClick={() => chooseProvince(s)}>{s}</span>
-            ))} <span onClick={()=> chooseProvince('ALL')}>ALL</span>
+              <span key={i} active="true" onClick={() => chooseProvince(s)}>{s}</span>
+            ))} <span active={true} onClick={()=> chooseProvince('ALL')}>ALL</span>
           </StateList>
+          { selectedAccount ?
+            <Map location={selectedAccount}/>
+            :
+            null
+          }
           <AccountsPage>
             { accountList }
 
@@ -87,6 +112,10 @@ const StateList = styled.div `
   padding: 2rem 3rem;
   flex-wrap: wrap;
   span {
+    ${({ active }) => active && `
+      text-decoration: underline;
+    `}
+
     padding: 1rem;
     cursor: pointer;
     font-family: 'Sorts Mill Goudy', serif;
@@ -99,17 +128,36 @@ const StateList = styled.div `
       color: #739ac5;
     }
   }
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+    span {
+      padding: 0.5rem 1rem;
+    }
+  }
+
+
 `
+// ${props => {
+//   if (props.active === props.filter) return `text-decoration: underline;`
+// }}
+
 
 const AccountsPage = styled.div`
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: repeat(4, 25%);
   padding: 2rem;
+  @media (min-width: 769px) and (max-width: 1024px) {
+    grid-template-columns: repeat(3, 33%);
+  }
+  @media (max-width: 768px) {
+    grid-template-columns: 100%;
+  }
 `
 const AccountCard = styled.div `
   background-color: #f7f7f7;
-  width: 260px;
   height: 200px;
+
   padding: 1rem;
   margin: 20px;
   /* border: 1px solid #d3d3d3; */
@@ -126,10 +174,14 @@ const AccountCard = styled.div `
     cursor: pointer;
     webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-
+  }
+  @media (max-width: 480px) {
+    margin: 1rem 0;
+  }
 `
 const Website = styled.div `
   padding-top: 0.5rem;
+  word-wrap: break-word;
   span {
     font-size: 0.8em;
   }

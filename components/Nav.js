@@ -5,16 +5,15 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 
 const Nav = () => {
-    return (
-        <NavBar >
-          <LinkCell><Link href="/">Home</Link></LinkCell>
-          <LinkCell><Link href="/about">About</Link></LinkCell>
-          <LogoLink src='https://res.cloudinary.com/abadfish/image/upload/v1607394173/ffix/logo_FF_white_horse_transparent_bg.png' alt='ff-logo' />
-          <LinkCell><Link href="/usage">Usage</Link></LinkCell>
-          <LinkCell><Link href="/buy">Where to Buy</Link></LinkCell>
-        </NavBar>
-    )
-
+  return (
+    <NavBar >
+      <LinkCell><Link href="/">Home</Link></LinkCell>
+      <LinkCell><Link href="/about">About</Link></LinkCell>
+      <LogoLink src='https://res.cloudinary.com/abadfish/image/upload/v1607394173/ffix/logo_FF_white_horse_transparent_bg.png' alt='ff-logo' />
+      <LinkCell><Link href="/usage">Usage</Link></LinkCell>
+      <LinkCell><Link href="/buy">Where to Buy</Link></LinkCell>
+    </NavBar>
+  )
 }
 
 export default Nav
@@ -26,14 +25,11 @@ const NavBar = styled.nav `
   grid-template-columns: repeat(5, 20%);
   padding: 0 2rem;
   background: transparent;
-  /* color: #d3d3d3; */
-  /* color: #242e62; */
   color: #fff;
   text-transform: uppercase;
   text-align: center;
 `
 const LinkCell = styled.div `
-  /* padding-top: 2rem; */
   line-height: 90px;
   letter-spacing: 3px;
   font-family: 'Sorts Mill Goudy', serif;
@@ -45,4 +41,4 @@ const LogoLink = styled.img `
   margin-left: auto;
   margin-right: auto;
 `
-// <LogoLink src="https://res.cloudinary.com/abadfish/image/upload/v1606877302/ffix/farriers-fix-logo-horizontal.jpg" alt='oil-bottle'/>
+// border-bottom: 2px solid #242e62;
