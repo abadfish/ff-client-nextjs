@@ -29,10 +29,11 @@ export const filterReducer = (state, action) => {
       throw new Error()
   }
 }
+// <iframe id='mini-map' title={props.location.company} src=`https://www.google.com/maps/embed/v1/place?key=${MAPS_API_KEY}&q=City+Hall,New+York,NY` />
 const Map = (props) => {
   return (
     <div>
-      <iframe id='mini-map' title={props.location.company} src=`https://www.google.com/maps/embed/v1/place?key=${MAPS_API_KEY}&q=City+Hall,New+York,NY` />
+
     </div>
   )
 }
@@ -59,10 +60,10 @@ const Buy = ({allAccountsData}) => {
   })
 
   const activeProvince = (s) => {
-    if ( province === filter && s === filter ) {
-      return true
+    if ( filter === s ) {
+      return 'underline'
     } else {
-      return false
+      return 'none'
     }
   }
 
@@ -85,8 +86,13 @@ const Buy = ({allAccountsData}) => {
         <Layout>
           <StateList>
             { stateList.map((s, i) => (
-              <span key={i} active="true" onClick={() => chooseProvince(s)}>{s}</span>
-            ))} <span active={true} onClick={()=> chooseProvince('ALL')}>ALL</span>
+              <StateDiv onClick={() => chooseProvince(s)} key={i} activep={activeProvince(s)}>
+                <span>{s}</span>
+              </StateDiv>
+            ))}
+            <StateDiv onClick={()=> chooseProvince('ALL')} key={100} activep={activeProvince('ALL')}>
+              <span >ALL</span>
+            </StateDiv>
           </StateList>
           { selectedAccount ?
             <Map location={selectedAccount}/>
@@ -95,9 +101,7 @@ const Buy = ({allAccountsData}) => {
           }
           <AccountsPage>
             { accountList }
-
           </AccountsPage>
-
         </Layout>
     )
 }
@@ -111,36 +115,29 @@ const StateList = styled.div `
   display: flex;
   padding: 2rem 3rem;
   flex-wrap: wrap;
+  @media (max-width: 480px) {
+    padding: 2rem 1rem;
+  }
+`
+const StateDiv = styled.div `
+  padding: 1rem;
+  cursor: pointer;
+  text-decoration: ${props => props.activep === "underline" ? "underline" : "none"};
   span {
-    ${({ active }) => active && `
-      text-decoration: underline;
-    `}
-
-    padding: 1rem;
-    cursor: pointer;
     font-family: 'Sorts Mill Goudy', serif;
     font-weight: bold;
     font-size: 0.9em;
     color: #242e62;
     transition: transform 200ms;
     &:hover {
-      /* font-size: 0.9em; */
+      font-size: 0.9em;
       color: #739ac5;
     }
   }
   @media (max-width: 480px) {
-    padding: 2rem 1rem;
-    span {
-      padding: 0.5rem 1rem;
-    }
+    padding: 0.5rem 1rem;
   }
-
-
 `
-// ${props => {
-//   if (props.active === props.filter) return `text-decoration: underline;`
-// }}
-
 
 const AccountsPage = styled.div`
   width: 100%;

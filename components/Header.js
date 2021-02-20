@@ -94,8 +94,6 @@ const HeaderWrapper = styled.div`
   background-repeat: no-repeat;
   // background-position: center;
   overflow: hidden;
-
-
   h1 {
     font-size: 600%;
     font-weight: 400;
@@ -117,6 +115,11 @@ const HeaderWrapper = styled.div`
     font-weight: 400;
 
   }
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 120%;
+    }
+  }
 `
 
 const HeaderOverlay = styled.div `
@@ -132,10 +135,19 @@ const HeaderContainer = styled.div`
   width: 100%;
   display: inline-grid;
   grid-template-columns: 50% 50%;
+  @media (max-width: 768px) {
+
+  }
 `
 const HeaderLeft = styled.div `
   padding: 1rem 3rem;
+  @media (max-width: 768px) {
+    padding: 1rem 0.3rem;
+  }
 `
 const HeaderRight = styled.div `
   padding: 1rem 3rem;
+  @media (max-width: 768px) {
+    padding: 1rem 0.3rem;
+  }
 `

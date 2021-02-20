@@ -9,7 +9,7 @@ const Footer = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by {' '}
+          <span>Powered by </span>
           <h3>Master Xeon</h3>
         </a>
       </Foot>
@@ -24,7 +24,7 @@ const Foot = styled.footer `
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   img {
     margin-left: 0.5rem;
     height: 1em;

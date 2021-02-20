@@ -8,8 +8,6 @@ import Footer from './Footer'
 
 const Layout = ({ children }) => {
   const router = useRouter()
-  console.log(router.pathname)
-  // const image3 = "https://res.cloudinary.com/abadfish/image/upload/v1606864749/ffix/logo_FF_horse_transparent.png"
   const image2 = "https://res.cloudinary.com/abadfish/image/upload/v1606864749/ffix/hot-iron-barstock.jpg"
   const image1 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on.jpg"
   const image3 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/healthy-hoof-on-stand.jpg"

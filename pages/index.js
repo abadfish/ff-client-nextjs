@@ -93,6 +93,7 @@ export const PageMessage = styled.div `
 `
 export const SectionHeading = styled.span `
   font-family: 'Sorts Mill Goudy', serif;
+  color: #242e62;
   text-align: left;
   font-size: 200%;
   font-weight: 600;
