@@ -2,11 +2,11 @@ import { useState, useRef } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
 import { Page, Content, PageMessage, SectionHeading, CardRowLeft, CardRowRight, More } from './index'
-import { API_URL } from '../lib/constants'
+import { server } from '../config'
 
 
 export async function getEndorsementsData() {
-  const res = await fetch(`${API_URL}/endorsements`)
+  const res = await fetch(`${server}/endorsements`)
   const endorsements = await res.json()
   return { endorsements }
 }

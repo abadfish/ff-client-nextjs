@@ -2,10 +2,10 @@ import { useState, useReducer } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
 import { Content } from './index'
-import { API_URL } from '../lib/constants'
+import { server } from '../config'
 
 export async function getAccountsData() {
-  const res = await fetch(`${API_URL}/accounts`)
+  const res = await fetch(`${ server }/accounts`)
   const accounts = await res.json()
   return { accounts }
 }
