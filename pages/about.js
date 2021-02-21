@@ -6,7 +6,8 @@ import { server } from '../config'
 
 
 export async function getEndorsementsData() {
-  const res = await fetch(`${server}/endorsements`)
+  const res = await fetch(`${ server }/endorsements`)
+  console.log(server)
   const endorsements = await res.json()
   return { endorsements }
 }
@@ -31,7 +32,7 @@ const About = ({endorsementData}) => {
   const endorsementRef = useRef()
 
   const endorsementsNoQuote = endorsementData.endorsements.filter(e => !e.quote).map((e, i) => (
-    <EndorsementNoQuote>
+    <EndorsementNoQuote key={e.id}>
       <img src={`${e.image_url}`} alt={e.name}/>
       <EndorserInfo>
         <strong><span>{e.name}</span></strong>
@@ -41,7 +42,7 @@ const About = ({endorsementData}) => {
   ))
 
   const endorsementsWithQuote = endorsementData.endorsements.filter(e => e.quote && e.image_url).sort((a, b) => a.quote.length - b.quote.length).map((e, i) => (
-    <EndorsementWithQuote>
+    <EndorsementWithQuote key={e.id}>
       <img src={`${e.image_url}`} alt={e.name}/>
       <EndorserInfo>
         <strong><span>{e.name}</span></strong>
@@ -53,7 +54,7 @@ const About = ({endorsementData}) => {
   ))
 
   const endorsementsNoImage = endorsementData.endorsements.filter(e => e.quote && !e.image_url).sort((a, b) => a.quote.length - b.quote.length).map((e, i) => (
-    <EndorsementNoImage>
+    <EndorsementNoImage key={e.id}>
       <EndorserInfo>
         <strong><span>{e.name}</span></strong>
         <i>{e.endorser_description}</i>
@@ -90,11 +91,15 @@ const About = ({endorsementData}) => {
                 </AboutCard>
               </CardRowRight>
               <EndorsementSection ref={ endorsementRef }>
-                <SectionHeading>Who is using Farriers' Fix...</SectionHeading>
+                <div style={{ margin: '50px'}}>
+                  <SectionHeading>Who is using Farriers' Fix...</SectionHeading>
+                </div>
                 <EndorsementRow spacing="space-around">
                   { endorsementsNoQuote }
                 </EndorsementRow>
-                <SectionHeading>What people are saying about Farriers' Fix...</SectionHeading>
+                <div style={{ margin: '50px'}}>
+                  <SectionHeading>What people are saying about Farriers' Fix...</SectionHeading>
+                </div>
                 <EndorsementRow spacing="space-evenly">
                   { endorsementsWithQuote }
                 </EndorsementRow>
@@ -156,8 +161,11 @@ const EndorsementNoQuote = styled.div `
   width: 25%;
   min-height: 200px;
   background: #f7f7f7;
-  margin: 1rem 0;
+  margin: 1.25rem 0;
   padding: 1.45rem 0.6rem;
+  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+
   img {
     webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
@@ -170,8 +178,10 @@ const EndorsementWithQuote = styled.div `
   max-height: 500px;
   overflow: auto;
   padding: 1.45rem 0.6rem;
-  margin: 1rem 0;
+  margin: 1.25rem 0;
   background: #f7f7f7;
+  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
 
   img {
     height: 255px;
@@ -187,8 +197,11 @@ const EndorsementNoImage = styled.div `
   max-height: 400px;
   overflow: auto;
   padding: 1.45rem 0.6rem;
-  margin: 1rem 0;
+  margin: 1.25rem 0;
   background: #f7f7f7;
+  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+
 `
 
 const Quote = styled.div `
