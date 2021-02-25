@@ -68,6 +68,7 @@ const Header = (props) => {
               {headerContent().subComponent}
             </HeaderRight>
           </HeaderContainer>
+          <ContactUs><div><span>Contact Us</span></div></ContactUs>
         </HeaderOverlay>
       </HeaderWrapper>
       </HeaderComponent >
@@ -85,7 +86,6 @@ const HeaderComponent = styled.div `
   box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   z-index: 100;
 `
-
 
 const HeaderWrapper = styled.div`
   background-image: url(${props => props.headerImage});
@@ -130,7 +130,7 @@ const HeaderOverlay = styled.div `
 const HeaderContainer = styled.div`
   margin: 0 auto;
   padding: 1.45rem 1.0875rem;
-  min-height: 600px;
+  min-height: 560px;
   color: #fff;
   width: 100%;
   display: inline-grid;
@@ -149,5 +149,22 @@ const HeaderRight = styled.div `
   padding: 1rem 3rem;
   @media (max-width: 768px) {
     padding: 1rem 0.3rem;
+  }
+`
+const ContactUs = styled.div `
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  div {
+    height: 40px;
+    width: 150px;
+    background: #fff;
+    span {
+      color: #242e62;
+      font-family: 'Sorts Mill Goudy', serif;
+      font-weight: 600;
+    }
   }
 `

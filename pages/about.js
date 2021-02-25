@@ -17,7 +17,8 @@ export async function getStaticProps() {
   return {
     props: {
       endorsementData
-    }
+    },
+    revalidate: 2,
   }
 }
 export const scrollToRef = (ref) => {
