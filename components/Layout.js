@@ -1,6 +1,7 @@
 import styled, { createGlobalStyle } from 'styled-components'
 import styles from '../styles/Home.module.css'
-import { useRouter } from "next/router";
+import { useRouter } from 'next/router';
+import Link from 'next/link'
 import Head from 'next/head'
 import Header from './Header'
 import Footer from './Footer'
@@ -23,7 +24,16 @@ const Layout = ({ children }) => {
       case '/buy':
         return null
       default:
-        return image3
+        return null
+    }
+  }
+
+  const displayContactUs = () => {
+    switch (router.pathname) {
+      case '/contact':
+        return "hidden"
+      default:
+        return "visible"
     }
   }
 
@@ -35,6 +45,11 @@ const Layout = ({ children }) => {
           <link href="https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet" />
         </Head>
         <AppContainer>
+          <Link href="/contact">
+            <ContactUs visibility={ displayContactUs() }>
+              <div><span>Contact Us</span></div>
+            </ContactUs>
+          </Link>
           <Header />
           <PageBg layoutImage={bgImage()}>
             <BgOverlay >
@@ -55,7 +70,7 @@ export default Layout
 const App = styled.div `
   min-height: 100vh;
 `
-const AppContainer = styled.main `
+const AppContainer = styled.div `
   width: 100%;
   min-height: 100vh;
   clear: both;
@@ -72,43 +87,34 @@ const PageBg = styled.div `
 
 const BgOverlay = styled.div `
   width: 100%;
-  /* background-color: rgba(255, 255, 255, 0.6); */
-  /* background-color: rgba(166, 169, 174, 0.6); */
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
 `
-const Main = styled.div  `
-  /* color: #fff; */
-
-  /* padding: 1rem; */
+const Main = styled.main  `
+  text-align: center;
+  padding-bottom: 2rem;
 `
-
-//  for index 2
-// const PageBg = styled.div `
-//   height: 100%;
-//   width: 100%;
-//   /* background-image: url(${props => props.layoutImage}); */
-//   /* background-image: url("https://res.cloudinary.com/abadfish/image/upload/v1607394167/ffix/logo_FF_horse-30-opacity_transparent-bg.png");
-//   background-size: cover;
-//   background-attachment: fixed;
-//   background-repeat: no-repeat;
-//   background-position: center; */
-// `
-// const Main = styled.div `
-//   padding: 5rem 0;
-//   flex: 1;
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: center;
-// `
-
-// padding: 0 0.5rem;
-// display: flex;
-// flex-direction: column;
-// justify-content: space-between;
-// align-items: center;
-
-// background: rgb(255,255,255);
-// background: linear-gradient(90deg, rgba(255,255,255,0.8) 27%, rgba(255,255,255,0.4211647727272727) 66%, rgba(255,255,255,0.5) 100%);
+const ContactUs = styled.div `
+  visibility: ${props => props.visibility};
+  position: fixed;
+  z-index: 100;
+  bottom: 15px;
+  right: 15px;
+  div {
+    height: 45px;
+    width: 140px;
+    background: rgba(36,46,98,0.65);
+    text-align: center;
+    line-height: 45px;
+    border-radius: 3px;
+    &:hover {
+      cursor: pointer;
+      background: rgba(36,46,98,1);
+    }
+    span {
+      color: #f7f7f7;
+      font-family: 'Sorts Mill Goudy', serif;
+      font-weight: 600;
+    }
+  }
+`

@@ -109,7 +109,7 @@ const Buy = ({allAccountsData}) => {
 
 export default Buy
 
-const StateList = styled.div `
+const StateList = styled.section `
   background: #f7f7f7;
   width: 100%;
   min-height: 170px;
@@ -140,7 +140,7 @@ const StateDiv = styled.div `
   }
 `
 
-const AccountsPage = styled.div`
+const AccountsPage = styled.section`
   width: 100%;
   display: inline-grid;
   grid-template-columns: repeat(4, 25%);
