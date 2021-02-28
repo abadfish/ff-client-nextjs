@@ -39,6 +39,14 @@ const Header = (props) => {
           tagLine: null,
           subComponent: null
         }
+      case '/contact':
+        return {
+          image: walking,
+          heading: "Farriers' Fix",
+          subHeading: "Contact Us",
+          tagLine: null,
+          subComponent: null
+        }
       default:
         return {
           image: image3,
@@ -68,6 +76,7 @@ const Header = (props) => {
               {headerContent().subComponent}
             </HeaderRight>
           </HeaderContainer>
+
         </HeaderOverlay>
       </HeaderWrapper>
       </HeaderComponent >
@@ -83,9 +92,7 @@ const HeaderComponent = styled.div `
   position: relative;
   webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-  z-index: 100;
 `
-
 
 const HeaderWrapper = styled.div`
   background-image: url(${props => props.headerImage});
@@ -130,7 +137,7 @@ const HeaderOverlay = styled.div `
 const HeaderContainer = styled.div`
   margin: 0 auto;
   padding: 1.45rem 1.0875rem;
-  min-height: 600px;
+  min-height: 560px;
   color: #fff;
   width: 100%;
   display: inline-grid;

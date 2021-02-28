@@ -1,10 +1,13 @@
 import { useState, useRef } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
-import { Page, Content, PageMessage, SectionHeading, CardRowLeft, CardRowRight, More } from './index'
+import { Content, PageMessage, SectionHeading, CardRowLeft, CardRowRight, More } from './index'
+import { server } from '../config'
+
 
 export async function getEndorsementsData() {
-  const res = await fetch('http://localhost:3001/api/endorsements')
+  const res = await fetch(`${ server }/endorsements`)
+  console.log(server)
   const endorsements = await res.json()
   return { endorsements }
 }
@@ -14,7 +17,8 @@ export async function getStaticProps() {
   return {
     props: {
       endorsementData
-    }
+    },
+    revalidate: 2,
   }
 }
 export const scrollToRef = (ref) => {
@@ -29,7 +33,7 @@ const About = ({endorsementData}) => {
   const endorsementRef = useRef()
 
   const endorsementsNoQuote = endorsementData.endorsements.filter(e => !e.quote).map((e, i) => (
-    <EndorsementNoQuote>
+    <EndorsementNoQuote key={e.id}>
       <img src={`${e.image_url}`} alt={e.name}/>
       <EndorserInfo>
         <strong><span>{e.name}</span></strong>
@@ -39,7 +43,7 @@ const About = ({endorsementData}) => {
   ))
 
   const endorsementsWithQuote = endorsementData.endorsements.filter(e => e.quote && e.image_url).sort((a, b) => a.quote.length - b.quote.length).map((e, i) => (
-    <EndorsementWithQuote>
+    <EndorsementWithQuote key={e.id}>
       <img src={`${e.image_url}`} alt={e.name}/>
       <EndorserInfo>
         <strong><span>{e.name}</span></strong>
@@ -51,7 +55,7 @@ const About = ({endorsementData}) => {
   ))
 
   const endorsementsNoImage = endorsementData.endorsements.filter(e => e.quote && !e.image_url).sort((a, b) => a.quote.length - b.quote.length).map((e, i) => (
-    <EndorsementNoImage>
+    <EndorsementNoImage key={e.id}>
       <EndorserInfo>
         <strong><span>{e.name}</span></strong>
         <i>{e.endorser_description}</i>
@@ -63,47 +67,47 @@ const About = ({endorsementData}) => {
 
     return (
         <Layout>
-          <Page>
-            <Content>
-              <PageMessage>
-                <p><i>"Initially, we were attracted to the ingredients in Farriers’ Fix Hoof Oil. With that combination, how could it not be good for the hoof? Since using the oil on a regular basis, we’ve noticed an improvement in the quality of the hoof wall. Now, it’s a staple in our program." <strong>-Anne Kursinski, Five-time USET Show Jumping Olympian</strong></i></p>
-                <More onClick={() => scrollToRef(endorsementRef)}>See more like this >></More>
-              </PageMessage>
-              <CardRowLeft>
-                <AboutCard>
-                  <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/paul.jpg" alt='Paul Heller shoeing'/>
-                </AboutCard>
-                <AboutCard>
-                  <SectionHeading>Developed by Farriers, for Farriers.</SectionHeading>
-                  <p>"I originally developed this product to sell to other farriers. Like most farriers, I have always encountered the basic problems found in many horses – sore feet, thrush, feet that are either too soft or too hard anlength d brittle, founder (laminitis), quarter cracks and white line disease. I started looking for a topical treatment and experimented with various ingredients; until I came up with what I now call Farriers’ Fix Hoof Oil."</p>
-                </AboutCard>
-              </CardRowLeft>
-              <CardRowRight>
-                <AboutCard>
-                  <SectionHeading>Paul Heller, Farrier</SectionHeading>
-                  <p>Paul has worked as a farrier in Westchester County, New York since 1972. He primarily shoes USEF “A” Circuit Hunters and, Jumpers as well as upper-level Dressage and Event horses, but prides himself on staying close to his roots, shoeing trail and hunt horses and those living happily in backyards!</p>
-                </AboutCard>
-                <AboutCard>
-                  <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/paul2.jpg" alt='Paul Heller shoeing'/>
-                </AboutCard>
-              </CardRowRight>
-              <EndorsementSection ref={ endorsementRef }>
+          <Content>
+            <PageMessage>
+              <p><i>"Initially, we were attracted to the ingredients in Farriers’ Fix Hoof Oil. With that combination, how could it not be good for the hoof? Since using the oil on a regular basis, we’ve noticed an improvement in the quality of the hoof wall. Now, it’s a staple in our program." <strong>-Anne Kursinski, Five-time USET Show Jumping Olympian</strong></i></p>
+              <More onClick={() => scrollToRef(endorsementRef)}>See more like this >></More>
+            </PageMessage>
+            <CardRowLeft>
+              <AboutCard>
+                <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/paul.jpg" alt='Paul Heller shoeing'/>
+              </AboutCard>
+              <AboutCard>
+                <SectionHeading>Developed by Farriers, for Farriers.</SectionHeading>
+                <p>"I originally developed this product to sell to other farriers. Like most farriers, I have always encountered the basic problems found in many horses – sore feet, thrush, feet that are either too soft or too hard anlength d brittle, founder (laminitis), quarter cracks and white line disease. I started looking for a topical treatment and experimented with various ingredients; until I came up with what I now call Farriers’ Fix Hoof Oil."</p>
+              </AboutCard>
+            </CardRowLeft>
+            <CardRowRight>
+              <AboutCard>
+                <SectionHeading>Paul Heller, Farrier</SectionHeading>
+                <p>Paul has worked as a farrier in Westchester County, New York since 1972. He primarily shoes USEF “A” Circuit Hunters and, Jumpers as well as upper-level Dressage and Event horses, but prides himself on staying close to his roots, shoeing trail and hunt horses and those living happily in backyards!</p>
+              </AboutCard>
+              <AboutCard>
+                <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/paul2.jpg" alt='Paul Heller shoeing'/>
+              </AboutCard>
+            </CardRowRight>
+            <EndorsementSection ref={ endorsementRef }>
+              <div style={{ margin: '50px'}}>
                 <SectionHeading>Who is using Farriers' Fix...</SectionHeading>
-                <EndorsementRow spacing="space-around">
-                  { endorsementsNoQuote }
-                </EndorsementRow>
+              </div>
+              <EndorsementRow spacing="space-around">
+                { endorsementsNoQuote }
+              </EndorsementRow>
+              <div style={{ margin: '50px'}}>
                 <SectionHeading>What people are saying about Farriers' Fix...</SectionHeading>
-                <EndorsementRow spacing="space-evenly">
-                  { endorsementsWithQuote }
-                </EndorsementRow>
-                <EndorsementRow spacing="space-evenly">
-                  { endorsementsNoImage }
-                </EndorsementRow>
-              </EndorsementSection>
-            </Content>
-
-          </Page>
-
+              </div>
+              <EndorsementRow spacing="space-evenly">
+                { endorsementsWithQuote }
+              </EndorsementRow>
+              <EndorsementRow spacing="space-evenly">
+                { endorsementsNoImage }
+              </EndorsementRow>
+            </EndorsementSection>
+          </Content>
         </Layout>
     )
 }
@@ -153,22 +157,45 @@ const EndorserInfo = styled.div `
 const EndorsementNoQuote = styled.div `
   width: 25%;
   min-height: 200px;
+<<<<<<< HEAD
   /* background: #f7f7f7; */
   margin: 1rem 0;
   padding: 2rem;
   -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
   box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+=======
+  background: #f7f7f7;
+  margin: 1.25rem 0;
+  padding: 1.45rem 0.6rem;
+  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+
+  img {
+    webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  }
+
+>>>>>>> d65dca3f3fb184be87f8b004cc19a72d7d781503
 `
 const EndorsementWithQuote = styled.div `
   width: 42%;
   min-height: 200px;
   max-height: 500px;
   overflow: auto;
+<<<<<<< HEAD
   padding: 2rem 2rem;
   margin: 1rem 0;
   /* background: #f7f7f7; */
   -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
   box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+=======
+  padding: 1.45rem 0.6rem;
+  margin: 1.25rem 0;
+  background: #f7f7f7;
+  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+
+>>>>>>> d65dca3f3fb184be87f8b004cc19a72d7d781503
   img {
     height: 255px;
     width: auto;
@@ -180,11 +207,19 @@ const EndorsementNoImage = styled.div `
   min-height: 200px;
   max-height: 400px;
   overflow: auto;
+<<<<<<< HEAD
   padding: 1.45rem 2rem;
   margin: 1rem 0;
   /* background: #f7f7f7; */
   -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
   box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+=======
+  padding: 1.45rem 0.6rem;
+  margin: 1.25rem 0;
+  background: #f7f7f7;
+  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+>>>>>>> d65dca3f3fb184be87f8b004cc19a72d7d781503
 
 `
 

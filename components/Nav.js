@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
 import styles from '../styles/Home.module.css'
-
 import Link from 'next/link'
 
 const Nav = () => {

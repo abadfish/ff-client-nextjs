@@ -2,10 +2,10 @@ import { useState, useReducer } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
 import { Content } from './index'
-import { stateAbbreviations } from './api/accounts'
+import { server } from '../config'
 
 export async function getAccountsData() {
-  const res = await fetch('http://localhost:3001/api/accounts')
+  const res = await fetch(`${ server }/accounts`)
   const accounts = await res.json()
   return { accounts }
 }
@@ -15,7 +15,8 @@ export async function getStaticProps() {
   return {
     props: {
       allAccountsData
-    }
+    },
+    revalidate: 2,
   }
 }
 
@@ -108,7 +109,7 @@ const Buy = ({allAccountsData}) => {
 
 export default Buy
 
-const StateList = styled.div `
+const StateList = styled.section `
   background: #f7f7f7;
   width: 100%;
   min-height: 170px;
@@ -139,7 +140,7 @@ const StateDiv = styled.div `
   }
 `
 
-const AccountsPage = styled.div`
+const AccountsPage = styled.section`
   width: 100%;
   display: inline-grid;
   grid-template-columns: repeat(4, 25%);
