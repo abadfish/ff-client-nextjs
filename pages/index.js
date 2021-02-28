@@ -57,8 +57,6 @@ export const Page = styled.main `
 `
 export const Content = styled.section `
   width: 100%;
-  // padding: 2rem 0;
-
 `
 export const More = styled.span `
   font-size: 150%;
@@ -68,7 +66,6 @@ export const More = styled.span `
   &:hover {
     cursor: pointer;
   }
-
 `
 export const PageMessage = styled.div `
   width: 100%;
@@ -106,14 +103,11 @@ export const CardRowRight = styled.div `
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-
 `
 export const CardRowLeft = styled.div `
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  webkit-box-shadow: 0 0 0 0px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-  box-shadow: 0 0 0 0px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
 
 `
 export const Card = styled.div `

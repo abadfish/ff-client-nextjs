@@ -153,29 +153,25 @@ const EndorserInfo = styled.div `
 const EndorsementNoQuote = styled.div `
   width: 25%;
   min-height: 200px;
-  background: #f7f7f7;
+  /* background: #f7f7f7; */
   margin: 1rem 0;
-  padding: 1.45rem 0.6rem;
-  img {
-    webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-  }
-
+  padding: 2rem;
+  -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
 `
 const EndorsementWithQuote = styled.div `
   width: 42%;
   min-height: 200px;
   max-height: 500px;
   overflow: auto;
-  padding: 1.45rem 0.6rem;
+  padding: 2rem 2rem;
   margin: 1rem 0;
-  background: #f7f7f7;
-
+  /* background: #f7f7f7; */
+  -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
   img {
     height: 255px;
     width: auto;
-    webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   }
 
 `
@@ -184,9 +180,12 @@ const EndorsementNoImage = styled.div `
   min-height: 200px;
   max-height: 400px;
   overflow: auto;
-  padding: 1.45rem 0.6rem;
+  padding: 1.45rem 2rem;
   margin: 1rem 0;
-  background: #f7f7f7;
+  /* background: #f7f7f7; */
+  -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+
 `
 
 const Quote = styled.div `
