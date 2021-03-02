@@ -35,7 +35,7 @@ const About = ({endorsementData}) => {
   const endorsementsNoQuote = endorsementData.endorsements.filter(e => !e.quote).map((e, i) => (
     <EndorsementNoQuote key={e.id}>
       <img src={`${e.image_url}`} alt={e.name}/>
-      <EndorserInfo>
+      <EndorserInfo alignment="center">
         <strong><span>{e.name}</span></strong>
         <i>{e.endorser_description}</i>
       </EndorserInfo>
@@ -44,26 +44,43 @@ const About = ({endorsementData}) => {
 
   const endorsementsWithQuote = endorsementData.endorsements.filter(e => e.quote && e.image_url).sort((a, b) => a.quote.length - b.quote.length).map((e, i) => (
     <EndorsementWithQuote key={e.id}>
-      <img src={`${e.image_url}`} alt={e.name}/>
-      <EndorserInfo>
+      <ImageContainer>
+        <img src={`${e.image_url}`} alt={e.name}/>
+      </ImageContainer>
+      <EndorserInfo alignment="left">
         <strong><span>{e.name}</span></strong>
         <i>{e.endorser_description}</i>
+        <Quote><span>{e.quote}</span></Quote>
       </EndorserInfo>
-      <Quote><span>{e.quote}</span></Quote>
+
 
     </EndorsementWithQuote>
   ))
 
   const endorsementsNoImage = endorsementData.endorsements.filter(e => e.quote && !e.image_url).sort((a, b) => a.quote.length - b.quote.length).map((e, i) => (
-    <EndorsementNoImage key={e.id}>
-      <EndorserInfo>
+    <EndorsementWithQuote key={e.id}>
+      <ImageContainer>
+        <img src={"https://res.cloudinary.com/abadfish/image/upload/v1606877302/ffix/farriers-fix-logo-vertical.jpg"} alt="farriers fix logo"/>
+      </ImageContainer>
+      <EndorserInfo alignment="left">
         <strong><span>{e.name}</span></strong>
         <i>{e.endorser_description}</i>
+        <Quote><span>{e.quote}</span></Quote>
       </EndorserInfo>
-      <Quote><span>{e.quote}</span></Quote>
-
-    </EndorsementNoImage>
+    </EndorsementWithQuote>
   ))
+
+  // const endorsementsNoImage = endorsementData.endorsements.filter(e => e.quote && !e.image_url).sort((a, b) => a.quote.length - b.quote.length).map((e, i) => (
+  //   <EndorsementNoImage key={e.id}>
+  //     <EndorserInfo alignment="left">
+  //       <strong><span>{e.name}</span></strong>
+  //       <i>{e.endorser_description}</i>
+  //       <Quote><span>{e.quote}</span></Quote>
+  //     </EndorserInfo>
+  //
+  //
+  //   </EndorsementNoImage>
+  // ))
 
     return (
         <Layout>
@@ -91,21 +108,17 @@ const About = ({endorsementData}) => {
               </AboutCard>
             </CardRowRight>
             <EndorsementSection ref={ endorsementRef }>
-              <div style={{ margin: '50px'}}>
+              <div>
                 <SectionHeading>Who is using Farriers' Fix...</SectionHeading>
               </div>
               <EndorsementRow spacing="space-around">
                 { endorsementsNoQuote }
               </EndorsementRow>
-              <div style={{ margin: '50px'}}>
+              <div style={{ margin: '30px'}}>
                 <SectionHeading>What people are saying about Farriers' Fix...</SectionHeading>
               </div>
-              <EndorsementRow spacing="space-evenly">
                 { endorsementsWithQuote }
-              </EndorsementRow>
-              <EndorsementRow spacing="space-evenly">
                 { endorsementsNoImage }
-              </EndorsementRow>
             </EndorsementSection>
           </Content>
         </Layout>
@@ -145,10 +158,10 @@ const EndorsementRow = styled.div `
   justify-content: ${props => props.spacing};
 `
 const EndorserInfo = styled.div `
-  padding: 1rem;
+  padding: 0 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  text-align: ${props => props.alignment};
   span {
     color: #242e62;
     font-size: 120%;
@@ -157,72 +170,50 @@ const EndorserInfo = styled.div `
 const EndorsementNoQuote = styled.div `
   width: 25%;
   min-height: 200px;
-<<<<<<< HEAD
-  /* background: #f7f7f7; */
   margin: 1rem 0;
-  padding: 2rem;
-  -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
-  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
-=======
-  background: #f7f7f7;
-  margin: 1.25rem 0;
-  padding: 1.45rem 0.6rem;
-  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-
+  padding: 2rem 1.45rem;
   img {
-    webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-    box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+    margin-bottom: 2rem;
+    -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
+    box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
   }
 
->>>>>>> d65dca3f3fb184be87f8b004cc19a72d7d781503
 `
 const EndorsementWithQuote = styled.div `
-  width: 42%;
+  width: 95%;
+  display: inline-grid;
+  grid-template-columns: 30% 70%;
   min-height: 200px;
   max-height: 500px;
   overflow: auto;
-<<<<<<< HEAD
-  padding: 2rem 2rem;
-  margin: 1rem 0;
-  /* background: #f7f7f7; */
-  -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
-  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
-=======
-  padding: 1.45rem 0.6rem;
-  margin: 1.25rem 0;
-  background: #f7f7f7;
-  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-
->>>>>>> d65dca3f3fb184be87f8b004cc19a72d7d781503
-  img {
-    height: 255px;
-    width: auto;
-  }
+  padding: 3rem 2.5rem;
+  // -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
+  // box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
 
 `
 const EndorsementNoImage = styled.div `
-  width: 42%;
+  width: 100%;
   min-height: 200px;
   max-height: 400px;
   overflow: auto;
-<<<<<<< HEAD
-  padding: 1.45rem 2rem;
-  margin: 1rem 0;
-  /* background: #f7f7f7; */
-  -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
-  box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
-=======
-  padding: 1.45rem 0.6rem;
-  margin: 1.25rem 0;
-  background: #f7f7f7;
-  webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
-  box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
->>>>>>> d65dca3f3fb184be87f8b004cc19a72d7d781503
+  padding: 3rem 4rem;
 
 `
 
 const Quote = styled.div `
   padding: 0.5rem 0;
+`
+const ImageContainer = styled.div `
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-around;
+  img {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 205px;
+    width: auto;
+    -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
+    box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
+  }
+
 `

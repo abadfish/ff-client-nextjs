@@ -47,7 +47,6 @@ const Buy = ({allAccountsData}) => {
 
   const chooseProvince = e => {
     setProvince(e)
-    console.log(e)
     dispatchFilter({ type: 'SHOW_STATE', payload: e })
   }
   const filteredAccounts = allAccountsData.accounts.filter(account => {

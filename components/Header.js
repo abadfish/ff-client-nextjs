@@ -12,6 +12,7 @@ const Header = (props) => {
   const image3 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/healthy-hoof-on-stand.jpg"
   const nailing = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on-landscape.png"
   const walking = "https://res.cloudinary.com/abadfish/image/upload/v1612571156/ffix/horse_walking.jpg"
+  const nose = "https://res.cloudinary.com/abadfish/image/upload/v1614555451/ffix/nose-touch.jpg"
 
   const headerContent = () => {
     switch (router.pathname) {
@@ -41,7 +42,7 @@ const Header = (props) => {
         }
       case '/contact':
         return {
-          image: walking,
+          image: nose,
           heading: "Farriers' Fix",
           subHeading: "Contact Us",
           tagLine: null,
