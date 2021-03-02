@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
 import { Content, PageMessage, SectionHeading, CardRowLeft, CardRowRight, More } from './index'
+import HeaderSubComponent from '../components/HeaderSubComponent'
 import { server } from '../config'
 
 
@@ -89,6 +90,9 @@ const About = ({endorsementData}) => {
               <p><i>"Initially, we were attracted to the ingredients in Farriers’ Fix Hoof Oil. With that combination, how could it not be good for the hoof? Since using the oil on a regular basis, we’ve noticed an improvement in the quality of the hoof wall. Now, it’s a staple in our program." <strong>-Anne Kursinski, Five-time USET Show Jumping Olympian</strong></i></p>
               <More onClick={() => scrollToRef(endorsementRef)}>See more like this >></More>
             </PageMessage>
+            <Ingredients>
+              <HeaderSubComponent />
+            </Ingredients>
             <CardRowLeft>
               <AboutCard>
                 <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/paul.jpg" alt='Paul Heller shoeing'/>
@@ -127,6 +131,7 @@ const About = ({endorsementData}) => {
 
 export default About
 
+
 export const AboutCard = styled.div `
   width: 50%;
   min-height: 450px;
@@ -140,10 +145,15 @@ export const AboutCard = styled.div `
   }
   img {
     position: relative;
-  width: 100%;
+    width: 100%;
     height: auto;
     webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 2rem 1.45rem;
+    min-height: 200px;
   }
 `
 const EndorsementSection = styled.section `
@@ -156,6 +166,10 @@ const EndorsementRow = styled.div `
   display: flex;
   flex-wrap: wrap;
   justify-content: ${props => props.spacing};
+  @media (max-width: 768px) {
+    flex-direction: column;
+    margin: 1rem 0;
+  }
 `
 const EndorserInfo = styled.div `
   padding: 0 1rem;
@@ -165,6 +179,10 @@ const EndorserInfo = styled.div `
   span {
     color: #242e62;
     font-size: 120%;
+  }
+  @media (max-width: 768px) {
+    text-align: center;
+    padding: 1rem 0 0 0;
   }
 `
 const EndorsementNoQuote = styled.div `
@@ -177,7 +195,10 @@ const EndorsementNoQuote = styled.div `
     -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
     box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
   }
-
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 0;
+  }
 `
 const EndorsementWithQuote = styled.div `
   width: 95%;
@@ -189,7 +210,11 @@ const EndorsementWithQuote = styled.div `
   padding: 3rem 2.5rem;
   // -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
   // box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
-
+  @media (max-width: 768px) {
+    display: block;
+    max-height: 1000px;
+    padding: 2rem 1.45rem;
+  }
 `
 const EndorsementNoImage = styled.div `
   width: 100%;
@@ -216,4 +241,10 @@ const ImageContainer = styled.div `
     box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
   }
 
+`
+
+const Ingredients = styled.div `
+  @media (min-width: 769px) {
+    display: none;
+  }
 `

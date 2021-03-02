@@ -66,7 +66,7 @@ const Header = (props) => {
     <HeaderComponent>
       <HeaderWrapper headerImage={headerContent().image}>
         <HeaderOverlay>
-        <Nav />
+          <Nav />
           <HeaderContainer>
             <HeaderLeft>
               <h1>{headerContent().heading}</h1>
@@ -125,7 +125,13 @@ const HeaderWrapper = styled.div`
   }
   @media (max-width: 768px) {
     h1 {
-      font-size: 120%;
+      font-size: 300%;
+    }
+    h2 {
+      font-size: 250%;
+    }
+    h3 {
+      font-size: 150%;
     }
   }
 `
@@ -144,7 +150,9 @@ const HeaderContainer = styled.div`
   display: inline-grid;
   grid-template-columns: 50% 50%;
   @media (max-width: 768px) {
-
+    display: block;
+    min-height: 300px;
+    padding: 0 1.0875rem
   }
 `
 const HeaderLeft = styled.div `
@@ -156,6 +164,7 @@ const HeaderLeft = styled.div `
 const HeaderRight = styled.div `
   padding: 1rem 3rem;
   @media (max-width: 768px) {
-    padding: 1rem 0.3rem;
+    display: none;
+    /* padding: 1rem 0.3rem; */
   }
 `

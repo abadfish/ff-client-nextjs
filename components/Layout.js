@@ -73,7 +73,6 @@ const App = styled.div `
 const AppContainer = styled.div `
   width: 100%;
   min-height: 100vh;
-  clear: both;
 `
 const PageBg = styled.div `
   height: 100%;

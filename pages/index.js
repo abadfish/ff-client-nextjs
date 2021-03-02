@@ -28,6 +28,9 @@ const Home = () => {
               <More>More about Farriers' Fix origins>></More>
             </Card>
           </Link>
+          <ImageCard>
+            <img src="https://res.cloudinary.com/abadfish/image/upload/v1606877360/ffix/2010_2119_Barn.jpg" alt="barn scene"/>
+          </ImageCard>
         </CardRowLeft>
         <CardRowRight>
           <Link href="/usage">
@@ -53,13 +56,27 @@ export const Content = styled.section `
   width: 100%;
 `
 export const More = styled.span `
+  width: 250px;
   font-size: 150%;
   font-weight: 600;
   padding-top: .7rem;
-  color: #739ac5;
+  /* color: #739ac5; */
+  /* background-image: linear-gradient(to left, #242e62, red); */
+  background-image: linear-gradient(to left, red, red);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: background-image 500ms cubic-bezier(0, 0, 0.53, 0.54);
+  -webkit-transition: background-image 500ms cubic-bezier(0, 0, 0.53, 0.54);
   &:hover {
+    background-image: linear-gradient(to left, #a50000, #a50000);
+    /* background-image: linear-gradient(to left, red, #242e62); */
     cursor: pointer;
   }
+  @media (max-width: 768px) {
+    font-size: 140%;
+  }
+
+
 `
 export const PageMessage = styled.div `
   width: 100%;
@@ -79,7 +96,12 @@ export const PageMessage = styled.div `
       cursor: pointer;
       text-decoration: underline;
     }
-
+  }
+  @media (max-width: 768px) {
+    padding: 2rem 1.45rem;
+    p {
+      font-size: 120%;
+    }
   }
 `
 export const SectionHeading = styled.span `
@@ -88,6 +110,9 @@ export const SectionHeading = styled.span `
   text-align: left;
   font-size: 200%;
   font-weight: 600;
+  @media (max-width: 768px) {
+    font-size: 170%;
+  }
 `
 const CardSpan = styled.span `
   font-size: 125%;
@@ -97,11 +122,17 @@ export const CardRowRight = styled.div `
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `
 export const CardRowLeft = styled.div `
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 
 `
 export const Card = styled.div `
@@ -118,8 +149,24 @@ export const Card = styled.div `
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   }
   p {
-    font-size: 130%;
+    font-size: 120%;
     text-align: left;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 2rem 1.45rem;
+
+  }
+`
+export const ImageCard = styled.div `
+  width: 100vw;
+  img {
+    max-width: 100%;
+      max-height: 100%;
+      display: block;
+  }
+  @media (min-width: 769px) {
+    display: none;
   }
 `
 // img {

@@ -84,10 +84,15 @@ const UsageCard = styled.div `
     webkit-box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
     box-shadow: 0 0 0 1px rgba(16, 22, 26, 0.1), 0 4px 8px rgba(16, 22, 26, 0.2), 0 18px 46px 6px rgba(16, 22, 26, 0.2);
   }
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 2rem 1.45rem;
+    min-height: 150px;
+  }
 `
 
 const UsageSection = styled.section `
-  background-color: rgba(255,255,255,0.8);
+  background-color: #f7f7f7;
   display: flex;
   flex-direction: column;
   min-height: 600px;
@@ -95,6 +100,9 @@ const UsageSection = styled.section `
   padding: 3rem;
   text-align: left;
   clear: both;
+  @media (max-width: 768px) {
+    padding: 2rem 1.45rem;
+  }
 `
 const UsageList = styled.div `
   h2 {
@@ -104,5 +112,10 @@ const UsageList = styled.div `
   }
   span {
     font-size: 130%;
+  }
+  @media (max-width: 768px) {
+    span {
+      font-size: 120%;
+    }
   }
 `
