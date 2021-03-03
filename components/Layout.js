@@ -42,6 +42,7 @@ const Layout = ({ children }) => {
         <Head>
           <title>Farrier's Fix</title>
           <link rel="icon" href="/favicon.ico" />
+          <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" media="screen"/>
           <link href="https://fonts.googleapis.com/css2?family=Sorts+Mill+Goudy&display=swap" rel="stylesheet" />
         </Head>
         <AppContainer>

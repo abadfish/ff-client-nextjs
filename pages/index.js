@@ -3,8 +3,6 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import Layout from '../components/Layout'
 
-// const fetcher = () => fetch('http://localhost:3001/api/accounts').then((res) => res.json())
-
 
 const Home = () => {
 
