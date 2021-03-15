@@ -3,6 +3,7 @@ import styled, { createGlobalStyle } from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import HeaderSubComponent from './HeaderSubComponent'
+import ContactInfo from './ContactInfo'
 
 const Header = (props) => {
 
@@ -46,7 +47,7 @@ const Header = (props) => {
           heading: "Farriers' Fix",
           subHeading: "Contact Us",
           tagLine: null,
-          subComponent: null
+          subComponent: <ContactInfo />
         }
       default:
         return {
@@ -156,7 +157,10 @@ const HeaderContainer = styled.div`
   }
 `
 const HeaderLeft = styled.div `
-  padding: 1rem 3rem;
+  padding: 3rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   @media (max-width: 768px) {
     padding: 1rem 0.3rem;
   }
