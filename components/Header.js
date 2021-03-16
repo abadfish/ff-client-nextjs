@@ -3,7 +3,6 @@ import styled, { createGlobalStyle } from 'styled-components'
 import Link from 'next/link'
 import { useRouter } from "next/router";
 import HeaderSubComponent from './HeaderSubComponent'
-import ContactInfo from './ContactInfo'
 
 const Header = (props) => {
 
@@ -47,7 +46,7 @@ const Header = (props) => {
           heading: "Farriers' Fix",
           subHeading: "Contact Us",
           tagLine: null,
-          subComponent: <ContactInfo />
+          subComponent: null
         }
       default:
         return {
