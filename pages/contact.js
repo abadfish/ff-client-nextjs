@@ -7,20 +7,31 @@ import Button from 'muicss/lib/react/button';
 import { SectionHeading } from './index'
 import { server } from '../config'
 
+export async function sendMessage(contact) {
+  console.log(server)
+  const res = await fetch(`${ server }/send_email`, {
+    body: JSON.stringify(contact),
+    headers: {'Content-Type': 'application/json'},
+    method: 'POST'
+  })
+  const result = await res.json()
+  console.log(result)
+}
+
 const Contact = () => {
 
-  const sendMessage = async event => {
-
-    const res = await fetch(`${ server }/send_email`, {
-      body: JSON.stringify(contact),
-      headers: {'Content-Type': 'application/json'},
-      method: 'POST'
-    })
-    const result = await res.json()
-    console.log(result)
-    // result.user => 'Ada Lovelace'
-    // render a thank you component once a success response comes back from the server
-  }
+  // const sendMessage = async event => {
+  //   console.log(server)
+  //   const res = await fetch(`${ server }/send_email`, {
+  //     body: JSON.stringify(contact),
+  //     headers: {'Content-Type': 'application/json'},
+  //     method: 'POST'
+  //   })
+  //   const result = await res.json()
+  //   console.log(result)
+  //   // result.user => 'Ada Lovelace'
+  //   // render a thank you component once a success response comes back from the server
+  // }
 
   const [ contact, setContact ] = useState({
     name: '',
@@ -37,7 +48,7 @@ const Contact = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    sendMessage()
+    sendMessage(contact)
     messageRef.current.reset()
   }
 
