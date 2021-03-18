@@ -1,37 +1,37 @@
 import { useState, useRef } from 'react'
 import styled from 'styled-components'
 import Layout from '../components/Layout'
-import Input from 'muicss/lib/react/input';
-import Textarea from 'muicss/lib/react/textarea';
-import Button from 'muicss/lib/react/button';
+import Input from 'muicss/lib/react/input'
+import Textarea from 'muicss/lib/react/textarea'
+import Button from 'muicss/lib/react/button'
 import { SectionHeading } from './index'
-import { server } from '../config'
+const { server } = require('../config')
 
-export async function sendMessage(contact) {
-  console.log(server)
-  const res = await fetch(`${ server }/send_email`, {
-    body: JSON.stringify(contact),
-    headers: {'Content-Type': 'application/json'},
-    method: 'POST'
-  })
-  const result = await res.json()
-  console.log(result)
-}
+// export async function sendMessage(contact) {
+//   const res = await fetch(`${server}/send_email`, {
+//     body: JSON.stringify(contact),
+//     headers: {'Content-Type': 'application/json'},
+//     method: 'POST'
+//   })
+//   const result = await res.json()
+//   console.log(result)
+// }
 
 const Contact = () => {
+  console.log(`server is ${server}`)
 
-  // const sendMessage = async event => {
-  //   console.log(server)
-  //   const res = await fetch(`${ server }/send_email`, {
-  //     body: JSON.stringify(contact),
-  //     headers: {'Content-Type': 'application/json'},
-  //     method: 'POST'
-  //   })
-  //   const result = await res.json()
-  //   console.log(result)
-  //   // result.user => 'Ada Lovelace'
-  //   // render a thank you component once a success response comes back from the server
-  // }
+  async function sendMessage(contact){
+    console.log(server)
+    const res = await fetch(`${ server }/send_email`, {
+      body: JSON.stringify(contact),
+      headers: {'Content-Type': 'application/json'},
+      method: 'POST'
+    })
+    const result = await res.json()
+    console.log(result)
+    // result.user => 'Ada Lovelace'
+    // render a thank you component once a success response comes back from the server
+  }
 
   const [ contact, setContact ] = useState({
     name: '',

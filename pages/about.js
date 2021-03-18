@@ -30,7 +30,7 @@ export const scrollToRef = (ref) => {
 }
 
 const About = ({endorsementData}) => {
-
+  console.log(`server is ${server}`)
   const endorsementRef = useRef()
 
   const endorsementsNoQuote = endorsementData.endorsements.filter(e => !e.quote).map((e, i) => (
