@@ -23,7 +23,7 @@ const Benefits = () => {
                 Allow 5-10 minutes for hoof to absorb oil before returning to stall.</p>
               </UsageCard>
               <UsageCard>
-                <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/packing.jpg" alt="packing a hoof"/>
+                <img src="https://res.cloudinary.com/abadfish/image/upload/v1614555452/ffix/canter.jpg" alt="hoof issues"/>
               </UsageCard>
             </CardRowLeft>
             <CardRowRight>
