@@ -17,8 +17,9 @@ const ModalWrapper = styled.div `
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: rgba(0,0,0,0.5);
+
 `
 const ModalMessage = styled.div `
   display: inline-block;
@@ -29,4 +30,8 @@ const ModalMessage = styled.div `
   margin-top: 35%;
   border-radius: 3px;
   padding: 2rem;
+  @media (max-width: 768px) {
+    width: 95%;
+    margin-top: 100%;
+  }
 `
