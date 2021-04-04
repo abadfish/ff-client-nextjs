@@ -1,6 +1,8 @@
 import { useState, useReducer } from 'react'
-import Layout from '../components/Layout'
 import styled from 'styled-components'
+import Button from 'muicss/lib/react/button'
+import Layout from '../components/Layout'
+import Modal from '../components/Modal'
 import { Content } from './index'
 import { server, mapsKey } from '../config'
 
@@ -34,9 +36,15 @@ export const filterReducer = (state, action) => {
 const Map = ({ location }) => {
   const streetAdd = `${location.address1.split(" ").join("+")},${location.city},${location.state}`
   return (
-    <div>
-      <iframe id='mini-map' title={ location.company } src={`https://www.google.com/maps/embed/v1/place?key=${ mapsKey }&q=${ streetAdd }`} />
-    </div>
+    <MapDiv>
+      <div>
+        <h2>{ location.company }</h2>
+        <span>{ location.address1 }</span><br />
+        <span>{ location.city }, { location.state } { location.zip }</span><br />
+        <span>{ location.phone }</span>
+      </div>
+      <iframe title={ location.company } src={`https://www.google.com/maps/embed/v1/place?key=${ mapsKey }&q=${ streetAdd }`} />
+    </MapDiv>
   )
 }
 
@@ -85,6 +93,14 @@ const Buy = ({allAccountsData}) => {
   const stateList = Array.from(new Set(allAccountsData.accounts.map(a => a.state)))
     return (
         <Layout>
+          { selectedAccount ?
+            <Modal onClose={ () => setSelectedAccount(null) }>
+              <Map location={ selectedAccount }/>
+              <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
+            </Modal>
+            :
+            null
+          }
           <StateList>
             { stateList.map((s, i) => (
               <StateDiv onClick={() => chooseProvince(s)} key={i} activep={activeProvince(s)}>
@@ -95,11 +111,7 @@ const Buy = ({allAccountsData}) => {
               <span >ALL</span>
             </StateDiv>
           </StateList>
-          { selectedAccount ?
-            <Map location={selectedAccount}/>
-            :
-            null
-          }
+
           <AccountsPage>
             { accountList }
           </AccountsPage>
@@ -182,5 +194,13 @@ const Website = styled.div `
   word-wrap: break-word;
   span {
     font-size: 0.8em;
+  }
+`
+const MapDiv = styled.div `
+  iframe {
+    border: none;
+  }
+  div {
+    margin-bottom: 1rem;
   }
 `

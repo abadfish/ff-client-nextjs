@@ -1,6 +1,7 @@
 import { useState, useRef } from 'react'
 import styled from 'styled-components'
 import Layout from '../components/Layout'
+import Modal from '../components/Modal'
 import Input from 'muicss/lib/react/input'
 import Textarea from 'muicss/lib/react/textarea'
 import Button from 'muicss/lib/react/button'
@@ -18,6 +19,9 @@ const { server } = require('../config')
 // }
 
 const Contact = () => {
+
+  const [msgSuccess, setMsgSuccess] = useState(false)
+
   async function sendMessage(contact){
     const res = await fetch(`${ server }/send_email`, {
       body: JSON.stringify(contact),
@@ -26,8 +30,13 @@ const Contact = () => {
     })
     const result = await res.json()
     console.log(result)
-    // result.user => 'Ada Lovelace'
-    // render a thank you component once a success response comes back from the server
+    processResult(result)
+  }
+
+  const processResult = (result) => {
+    if (result.message === 'email sent successfully') {
+      setMsgSuccess(true)
+    }
   }
 
   const [ contact, setContact ] = useState({
@@ -51,6 +60,20 @@ const Contact = () => {
 
   return (
     <Layout>
+      { msgSuccess ?
+        <Modal onClose={ () => setMsgSuccess(false) }>
+          <SuccessMsg>
+            <img src="https://res.cloudinary.com/abadfish/image/upload/v1606877302/ffix/farriers-fix-logo-horizontal.jpg" alt="ff-logo"/>
+            <div>
+              <p>Thanks for reaching out!</p>
+              <p>We'll get back to you shortly.</p>
+            </div>
+            <Button onClick={ () => setMsgSuccess(false) } variant='raised'>Close</Button>
+          </SuccessMsg>
+        </Modal>
+        :
+        null
+      }
       <ContactPage>
         <ContactInfo>
           <h2>Farriers Fix Inc.</h2>
@@ -91,6 +114,22 @@ const Contact = () => {
 }
 
 export default Contact
+
+const SuccessMsg = styled.div `
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+  img {
+    width: 250px;
+    height: auto;
+    margin: 0 auto 2rem auto;
+  }
+  p {
+    color: #242e62;
+    font-size: 130%;
+  }
+`
 
 const ContactPage = styled.div `
   display: flex;
