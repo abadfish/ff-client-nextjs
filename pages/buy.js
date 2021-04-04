@@ -2,7 +2,7 @@ import { useState, useReducer } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
 import { Content } from './index'
-import { server } from '../config'
+import { server, mapsKey } from '../config'
 
 export async function getAccountsData() {
   const res = await fetch(`${ server }/accounts`)
@@ -30,17 +30,17 @@ export const filterReducer = (state, action) => {
       throw new Error()
   }
 }
-// <iframe id='mini-map' title={props.location.company} src=`https://www.google.com/maps/embed/v1/place?key=${MAPS_API_KEY}&q=City+Hall,New+York,NY` />
-const Map = (props) => {
+
+const Map = ({ location }) => {
+  const streetAdd = `${location.address1.split(" ").join("+")},${location.city},${location.state}`
   return (
     <div>
-
+      <iframe id='mini-map' title={ location.company } src={`https://www.google.com/maps/embed/v1/place?key=${ mapsKey }&q=${ streetAdd }`} />
     </div>
   )
 }
 
 const Buy = ({allAccountsData}) => {
-
   const [ filter, dispatchFilter ] = useReducer(filterReducer, 'ALL')
   const [ province, setProvince ] = useState('')
   const [ selectedAccount, setSelectedAccount ] = useState(null)
@@ -49,6 +49,7 @@ const Buy = ({allAccountsData}) => {
     setProvince(e)
     dispatchFilter({ type: 'SHOW_STATE', payload: e })
   }
+
   const filteredAccounts = allAccountsData.accounts.filter(account => {
     if (filter === 'ALL') {
       return true

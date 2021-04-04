@@ -22,7 +22,7 @@ const Home = () => {
           <Link href="/about">
             <Card>
               <SectionHeading>Developed by Farriers, for Farriers.</SectionHeading>
-              <p>Originally developed for use by farriers to treat common hoof problems encountered in many horses, such as soreness, thrush, soft or brittle hoof composition, founder (laminitis), quarter cracks and white line disease, Farriers' Fix was one farrier's formula.  Experiments with various ingredients to form a topical solution led to the development of what is now called Farriers’ Fix Hoof Oil. </p>
+              <p>The formula was originally developed for use by farriers to treat common hoof problems encountered in many horses, such as soreness, thrush, soft or brittle hoof composition, founder (laminitis), quarter cracks and white line disease.  Experiments with various ingredients to form a topical solution led to the development of what is now called Farriers’ Fix Hoof Oil. </p>
               <More>More about Farriers' Fix origins>></More>
             </Card>
           </Link>

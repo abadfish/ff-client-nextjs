@@ -18,10 +18,7 @@ const { server } = require('../config')
 // }
 
 const Contact = () => {
-  console.log(`server is ${server}`)
-
   async function sendMessage(contact){
-    console.log(server)
     const res = await fetch(`${ server }/send_email`, {
       body: JSON.stringify(contact),
       headers: {'Content-Type': 'application/json'},
