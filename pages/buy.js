@@ -1,4 +1,4 @@
-import { useState, useReducer } from 'react'
+import { useState, useReducer, useRef } from 'react'
 import styled from 'styled-components'
 import Button from 'muicss/lib/react/button'
 import Layout from '../components/Layout'
@@ -33,29 +33,33 @@ export const filterReducer = (state, action) => {
   }
 }
 
-const Map = ({ location }) => {
-  const streetAdd = `${location.address1.split(" ").join("+")},${location.city},${location.state}`
+const Map = ({ account }) => {
+  const streetAdd = `${account.address1.split(" ").join("+")},${account.city},${account.state}`
   return (
     <MapDiv>
       <div>
-        <h2>{ location.company }</h2>
-        <span>{ location.address1 }</span><br />
-        <span>{ location.city }, { location.state } { location.zip }</span><br />
-        <span>{ location.phone }</span>
+        <h2>{ account.company }</h2>
+        <span>{ account.address1 }</span><br />
+        <span>{ account.city }, { account.state } { account.zip }</span><br />
+        <span>{ account.phone }</span>
       </div>
-      <iframe title={ location.company } src={`https://www.google.com/maps/embed/v1/place?key=${ mapsKey }&q=${ streetAdd }`} />
+      <iframe title={ account.company } src={`https://www.google.com/maps/embed/v1/place?key=${ mapsKey }&q=${ streetAdd }`} />
     </MapDiv>
   )
 }
 
-const Buy = ({allAccountsData}) => {
+const Buy = ({ allAccountsData }) => {
+
   const [ filter, dispatchFilter ] = useReducer(filterReducer, 'ALL')
   const [ province, setProvince ] = useState('')
   const [ selectedAccount, setSelectedAccount ] = useState(null)
 
+  const accountsRef = useRef()
+
   const chooseProvince = e => {
     setProvince(e)
     dispatchFilter({ type: 'SHOW_STATE', payload: e })
+    scrollToSection('accounts')
   }
 
   const filteredAccounts = allAccountsData.accounts.filter(account => {
@@ -76,12 +80,14 @@ const Buy = ({allAccountsData}) => {
     }
   }
 
-  const handleShowLocation = a => {
+  const handleShowLocation = (a, i)=> {
+    console.log(window.innerHeight)
     setSelectedAccount(a)
+    // scrollToAccount(i)
   }
 
   const accountList = filteredAccounts.map((a, i) => (
-    <AccountCard key={i} onClick={() => handleShowLocation(a)}>
+    <AccountCard key={i} id={i} onClick={() => handleShowLocation(a, i)}>
       <div><h3>{a.company}</h3></div>
       <div>{a.address1}</div>
       <div>{a.city}, {a.state} {a.zip}</div>
@@ -90,33 +96,54 @@ const Buy = ({allAccountsData}) => {
     </AccountCard>
   ))
 
-  const stateList = Array.from(new Set(allAccountsData.accounts.map(a => a.state)))
-    return (
-        <Layout>
-          { selectedAccount ?
-            <Modal onClose={ () => setSelectedAccount(null) }>
-              <Map location={ selectedAccount }/>
-              <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
-            </Modal>
-            :
-            null
-          }
-          <StateList>
-            { stateList.map((s, i) => (
-              <StateDiv onClick={() => chooseProvince(s)} key={i} activep={activeProvince(s)}>
-                <span>{s}</span>
-              </StateDiv>
-            ))}
-            <StateDiv onClick={()=> chooseProvince('ALL')} key={100} activep={activeProvince('ALL')}>
-              <span >ALL</span>
-            </StateDiv>
-          </StateList>
+  const scrollToAccount = id => {
+    let el = document.getElementById(id)
+    let elRect = el.getBoundingClientRect().top
+    console.log(elRect)
+    // document.querySelector(id).scrollIntoView({behavior: 'smooth', block:'end'})
+  }
 
-          <AccountsPage>
-            { accountList }
-          </AccountsPage>
-        </Layout>
-    )
+  const scrollToSection = section => {
+    let el = document.getElementById(section);
+    let elOffset = 125;
+    let bodyRect = document.body.getBoundingClientRect().top
+    let elRect = el.getBoundingClientRect().top
+    let elPosition = elRect - bodyRect
+    let offsetPosition = bodyRect === 0 ? elPosition - elOffset - 80.51 : elPosition - elOffset
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: 'smooth'
+    })
+  }
+
+  const stateList = Array.from(new Set(allAccountsData.accounts.map(a => a.state)))
+
+  return (
+      <Layout>
+        { selectedAccount ?
+          <Modal onClose={ () => setSelectedAccount(null) }>
+            <Map account={ selectedAccount }/>
+            <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
+          </Modal>
+          :
+          null
+        }
+        <StateList>
+          { stateList.map((s, i) => (
+            <StateDiv onClick={() => chooseProvince(s)} key={i} activep={activeProvince(s)}>
+              <span>{s}</span>
+            </StateDiv>
+          ))}
+          <StateDiv onClick={()=> chooseProvince('ALL')} key={100} activep={activeProvince('ALL')}>
+            <span >ALL</span>
+          </StateDiv>
+        </StateList>
+
+        <AccountsPage ref={ accountsRef } id='accounts'>
+          { accountList }
+        </AccountsPage>
+      </Layout>
+  )
 }
 
 export default Buy
