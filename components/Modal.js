@@ -13,7 +13,7 @@ const Modal = (props) => {
 export default Modal
 
 const ModalWrapper = styled.div `
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -22,16 +22,15 @@ const ModalWrapper = styled.div `
 
 `
 const ModalMessage = styled.div `
+  z-index: 1000;
   display: inline-block;
-  width: 30%;
+  width: 50%;
   clear: both;
-  // height: 300px;
   background-color: #fff;
-  margin-top: 35%;
+  margin-top: 25%;
   border-radius: 3px;
   padding: 2rem;
   @media (max-width: 768px) {
     width: 95%;
-    margin-top: 100%;
   }
 `

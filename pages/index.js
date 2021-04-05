@@ -34,7 +34,7 @@ const Home = () => {
           <Link href="/usage">
             <Card>
               <SectionHeading>Countless Benefits.</SectionHeading>
-              <br /><br /><CardSpan><strong>FIX SORENESS </strong>
+              <CardSpan><strong>FIX SORENESS </strong>
               The unique blend of ingredients in Farriers’ Fix penetrates the hoof capsule to draw out soreness. In many cases, horses that were suffering from stone bruises or trimmed too short, were actually rideable the next day. It’s an ideal treatment for horses that are racing, jumping and working on adverse surfaces.</CardSpan>
               <br /><br /><CardSpan><strong>FIX DRY, CRACKED HOOVES </strong>
               Many hoof oils are petroleum or lacquer based and seal in or seal out moisture. The all natural ingredients in Farriers’ Fix balance the moisture content and allow the hoof to breathe, which is essential for a healthy hoof.</CardSpan>
@@ -102,7 +102,7 @@ export const PageMessage = styled.div `
     }
   }
 `
-export const SectionHeading = styled.span `
+export const SectionHeading = styled.header `
   font-family: 'Sorts Mill Goudy', serif;
   color: #242e62;
   text-align: left;
@@ -110,6 +110,7 @@ export const SectionHeading = styled.span `
   font-weight: 600;
   @media (max-width: 768px) {
     font-size: 170%;
+    padding-bottom: 1.25rem;
   }
 `
 const CardSpan = styled.span `

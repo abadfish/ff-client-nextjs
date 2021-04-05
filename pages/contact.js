@@ -18,6 +18,18 @@ const { server } = require('../config')
 //   console.log(result)
 // }
 
+const Success = () => {
+  return (
+    <SuccessMsg>
+      <img src="https://res.cloudinary.com/abadfish/image/upload/v1606877302/ffix/farriers-fix-logo-horizontal.jpg" alt="ff-logo"/>
+      <div>
+        <p>Thanks for reaching out!</p>
+        <p>We'll get back to you shortly.</p>
+      </div>
+    </SuccessMsg>
+  )
+}
+
 const Contact = () => {
 
   const [msgSuccess, setMsgSuccess] = useState(false)
@@ -62,14 +74,11 @@ const Contact = () => {
     <Layout>
       { msgSuccess ?
         <Modal onClose={ () => setMsgSuccess(false) }>
-          <SuccessMsg>
-            <img src="https://res.cloudinary.com/abadfish/image/upload/v1606877302/ffix/farriers-fix-logo-horizontal.jpg" alt="ff-logo"/>
-            <div>
-              <p>Thanks for reaching out!</p>
-              <p>We'll get back to you shortly.</p>
-            </div>
-            <Button onClick={ () => setMsgSuccess(false) } variant='raised'>Close</Button>
-          </SuccessMsg>
+          <Success />
+          <Button
+            onClick={ () => setMsgSuccess(false) }
+            size='small'
+            variant='raised'>Close</Button>
         </Modal>
         :
         null
@@ -86,21 +95,18 @@ const Contact = () => {
           <form ref={ messageRef } onSubmit={handleSubmit}>
             <Input
               label='Name'
-              floatingLabel={true}
               name='name'
               type="text"
               onChange={handleOnChange}
             />
             <Input
               label='Email'
-              floatingLabel={true}
               name='email'
               type="text"
               onChange={handleOnChange}
             />
             <Textarea
               label='Message'
-              floatingLabel={true}
               name='message'
               onChange={handleOnChange}
             />
@@ -114,6 +120,34 @@ const Contact = () => {
 }
 
 export default Contact
+
+const ContactForm = styled.section `
+  padding: 3rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  form {
+    margin: 3rem 0;
+    div {
+      position: static;
+      label {
+        position: static;
+        z-index: -1;
+      }
+    }
+    button {
+      position: static;
+    }
+    Input {
+      text-align: center;
+    }
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 1rem 2rem;
+  }
+`
 
 const SuccessMsg = styled.div `
   display: flex;
@@ -155,22 +189,5 @@ const ContactInfo = styled.section `
   @media (max-width: 768px) {
     width: 100%;
     padding: 2rem 1rem;
-  }
-`
-const ContactForm = styled.section `
-  padding: 3rem 4rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 60%;
-  form {
-    margin: 3rem 0;
-    Input {
-      text-align: center;
-    }
-  }
-  @media (max-width: 768px) {
-    width: 100%;
-    padding: 1rem 2rem;
   }
 `
