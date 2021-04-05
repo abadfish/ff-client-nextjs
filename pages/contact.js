@@ -85,6 +85,8 @@ const Contact = () => {
       }
       <ContactPage>
         <ContactInfo>
+          <img src="https://res.cloudinary.com/abadfish/image/upload/v1607394173/ffix/logo_FF_horse_transparent.png" alt="ff-logo-vertical"/>
+
           <h2>Farriers Fix Inc.</h2>
           <h3>PO Box 191</h3>
           <h3>Bedford, NY 10506</h3>
@@ -166,6 +168,7 @@ const SuccessMsg = styled.div `
 `
 
 const ContactPage = styled.div `
+  text-align: center;
   display: flex;
   h3 {
     font-family: 'Sorts Mill Goudy', serif;
@@ -179,12 +182,17 @@ const ContactPage = styled.div `
 `
 const ContactInfo = styled.section `
   width: 40%;
-  padding: 5rem 1rem;
+  padding: 3rem 1rem;
   h2 {
     font-family: 'Sorts Mill Goudy', serif;
     font-size: 300%;
     font-weight: 400;
     color: #242e62;
+  }
+  img {
+    width: 40%;
+    height: auto;
+    padding: 2rem 0 0 0;
   }
   @media (max-width: 768px) {
     width: 100%;

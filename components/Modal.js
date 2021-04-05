@@ -23,13 +23,15 @@ const ModalWrapper = styled.div `
 `
 const ModalMessage = styled.div `
   z-index: 1000;
-  display: inline-block;
   width: 50%;
   clear: both;
   background-color: #fff;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 25%;
   border-radius: 3px;
   padding: 2rem;
+  text-align: center;
   @media (max-width: 768px) {
     width: 95%;
   }

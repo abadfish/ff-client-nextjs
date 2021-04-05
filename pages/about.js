@@ -159,6 +159,9 @@ export const AboutCard = styled.div `
 const EndorsementSection = styled.section `
   margin-top: 2rem;
   padding: 0 3rem;
+  @media (max-width: 768px) {
+    padding: 0 1.45rem;
+  }
 `
 const EndorsementRow = styled.div `
   padding: 0 1rem;
@@ -168,6 +171,7 @@ const EndorsementRow = styled.div `
   flex-wrap: wrap;
   justify-content: ${props => props.spacing};
   @media (max-width: 768px) {
+    text-align: center;
     flex-direction: column;
     margin: 1rem 0;
   }
@@ -206,19 +210,16 @@ const EndorsementNoQuote = styled.div `
   }
 `
 const EndorsementWithQuote = styled.div `
-  width: 95%;
   display: inline-grid;
   grid-template-columns: 30% 70%;
   min-height: 200px;
   max-height: 500px;
   overflow: auto;
   padding: 3rem 0;
-  // -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
-  // box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
   @media (max-width: 768px) {
     display: block;
     max-height: 1000px;
-    padding: 2rem 1.45rem;
+    padding: 2rem 1rem;
   }
 `
 const EndorsementNoImage = styled.div `
@@ -234,18 +235,20 @@ const Quote = styled.div `
   padding: 0.5rem 0;
 `
 const ImageContainer = styled.div `
-  // display: flex;
-  // flex-direction: column;
-  // justify-content: space-around;
+  text-align: center;
   img {
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
     height: 205px;
     width: auto;
     -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
     box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
   }
-
+  @media (max-width: 1025px) and (min-width: 768px) {
+    img {
+      width: 90%;
+      height: auto;
+    }
+  }
 `
 
 const Ingredients = styled.div `

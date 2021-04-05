@@ -91,14 +91,14 @@ const BgOverlay = styled.div `
   flex-direction: column;
 `
 const Main = styled.main  `
-  text-align: center;
-  padding-bottom: 2rem;
+  /* text-align: center; */
+  /* padding-bottom: 2rem; */
 `
 const ContactUs = styled.div `
   visibility: ${props => props.visibility};
   position: fixed;
   z-index: 100;
-  bottom: 15px;
+  bottom: 30px;
   right: 15px;
   div {
     height: 45px;

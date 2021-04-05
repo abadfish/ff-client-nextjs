@@ -167,10 +167,8 @@ const AccountsPage = styled.section`
 const AccountCard = styled.div `
   background-color: #f7f7f7;
   height: 200px;
-
   padding: 1rem;
   margin: 20px;
-  /* border: 1px solid #d3d3d3; */
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -197,6 +195,7 @@ const Website = styled.div `
   }
 `
 const MapDiv = styled.div `
+  text-align: center;
   iframe {
     border: none;
   }
