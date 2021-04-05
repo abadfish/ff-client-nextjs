@@ -87,7 +87,7 @@ const Header = (props) => {
 
 export default Header
 
-const HeaderComponent = styled.div `
+const HeaderComponent = styled.section `
   width: 100%;
   clear: both;
   position: relative;
@@ -103,7 +103,7 @@ const HeaderWrapper = styled.div`
   // background-position: center;
   overflow: hidden;
   h1 {
-    font-size: 600%;
+    font-size: 550%;
     font-weight: 400;
     font-family: 'Sorts Mill Goudy', serif;
     margin-bottom: 0;
@@ -125,10 +125,10 @@ const HeaderWrapper = styled.div`
   }
   @media (max-width: 768px) {
     h1 {
-      font-size: 300%;
+      font-size: 350%;
     }
     h2 {
-      font-size: 250%;
+      font-size: 200%;
     }
     h3 {
       font-size: 150%;
@@ -149,7 +149,7 @@ const HeaderContainer = styled.div`
   width: 100%;
   display: inline-grid;
   grid-template-columns: 50% 50%;
-  @media (max-width: 768px) {
+  @media (max-width: 1025px) {
     display: block;
     min-height: 300px;
     padding: 0 1.0875rem

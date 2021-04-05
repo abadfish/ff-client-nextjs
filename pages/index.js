@@ -35,10 +35,10 @@ const Home = () => {
             <Card>
               <SectionHeading>Countless Benefits.</SectionHeading>
               <CardSpan><strong>FIX SORENESS </strong>
-              The unique blend of ingredients in Farriers’ Fix penetrates the hoof capsule to draw out soreness. In many cases, horses that were suffering from stone bruises or trimmed too short, were actually rideable the next day. It’s an ideal treatment for horses that are racing, jumping and working on adverse surfaces.</CardSpan>
-              <br /><br /><CardSpan><strong>FIX DRY, CRACKED HOOVES </strong>
+              The unique blend of ingredients in Farriers’ Fix penetrates the hoof capsule to draw out soreness. In many cases, horses that were suffering from stone bruises or trimmed too short, were actually rideable the next day. </CardSpan>
+              <CardSpan><strong>FIX DRY, CRACKED HOOVES </strong>
               Many hoof oils are petroleum or lacquer based and seal in or seal out moisture. The all natural ingredients in Farriers’ Fix balance the moisture content and allow the hoof to breathe, which is essential for a healthy hoof.</CardSpan>
-              <br /><br />
+              <br />
               <More>See more benefits>></More>
             </Card>
           </Link>
@@ -108,9 +108,9 @@ export const SectionHeading = styled.header `
   text-align: left;
   font-size: 200%;
   font-weight: 600;
+  padding-bottom: 1.25rem;
   @media (max-width: 768px) {
     font-size: 170%;
-    padding-bottom: 1.25rem;
   }
 `
 const CardSpan = styled.span `
@@ -136,11 +136,15 @@ export const CardRowLeft = styled.div `
 `
 export const Card = styled.div `
   width: 50%;
-  min-height: 500px;
+  clear: both;
+  min-height: 400px;
   background-color: rgba(255,255,255,1);
-  padding: 4rem;
+  padding: 3rem 4rem;
   color: #242e62;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   transition: transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9);
   &:hover {
     cursor: pointer;

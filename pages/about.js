@@ -118,7 +118,7 @@ const About = ({endorsementData}) => {
               <EndorsementRow spacing="space-around">
                 { endorsementsNoQuote }
               </EndorsementRow>
-              <div style={{ margin: '30px'}}>
+              <div>
                 <SectionHeading>What people are saying about Farriers' Fix...</SectionHeading>
               </div>
                 { endorsementsWithQuote }
@@ -158,6 +158,7 @@ export const AboutCard = styled.div `
 `
 const EndorsementSection = styled.section `
   margin-top: 2rem;
+  padding: 0 3rem;
 `
 const EndorsementRow = styled.div `
   padding: 0 1rem;
@@ -198,6 +199,10 @@ const EndorsementNoQuote = styled.div `
   @media (max-width: 768px) {
     width: 100%;
     padding: 0;
+    margin: 1rem 0 3rem 0;
+    img {
+      margin-bottom: 0.5rem;
+    }
   }
 `
 const EndorsementWithQuote = styled.div `
@@ -207,7 +212,7 @@ const EndorsementWithQuote = styled.div `
   min-height: 200px;
   max-height: 500px;
   overflow: auto;
-  padding: 3rem 2.5rem;
+  padding: 3rem 0;
   // -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
   // box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 1px 1px rgba(16,22,26,.2), 0 2px 6px rgba(16,22,26,.2);
   @media (max-width: 768px) {
@@ -221,7 +226,7 @@ const EndorsementNoImage = styled.div `
   min-height: 200px;
   max-height: 400px;
   overflow: auto;
-  padding: 3rem 4rem;
+  padding: 3rem 0;
 
 `
 
