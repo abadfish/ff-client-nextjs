@@ -53,8 +53,6 @@ const About = ({endorsementData}) => {
         <i>{e.endorser_description}</i>
         <Quote><span>{e.quote}</span></Quote>
       </EndorserInfo>
-
-
     </EndorsementWithQuote>
   ))
 
@@ -70,18 +68,6 @@ const About = ({endorsementData}) => {
       </EndorserInfo>
     </EndorsementWithQuote>
   ))
-
-  // const endorsementsNoImage = endorsementData.endorsements.filter(e => e.quote && !e.image_url).sort((a, b) => a.quote.length - b.quote.length).map((e, i) => (
-  //   <EndorsementNoImage key={e.id}>
-  //     <EndorserInfo alignment="left">
-  //       <strong><span>{e.name}</span></strong>
-  //       <i>{e.endorser_description}</i>
-  //       <Quote><span>{e.quote}</span></Quote>
-  //     </EndorserInfo>
-  //
-  //
-  //   </EndorsementNoImage>
-  // ))
 
     return (
         <Layout>
@@ -195,6 +181,7 @@ const EndorsementNoQuote = styled.div `
   min-height: 200px;
   margin: 1rem 0;
   padding: 2rem 1.45rem;
+  text-align: center;
   img {
     margin-bottom: 2rem;
     -webkit-box-shadow: 0 0 0 1px rgba(16,22,26,.1), 0 4px 8px rgba(16,22,26,.2), 0 18px 46px 6px rgba(16,22,26,.2);
