@@ -14,7 +14,7 @@ const Benefits = () => {
             <PageMessage>
               <SectionHeading>For daily use or therapeutic application.</SectionHeading>
               <p>Farriers’ Fix Hoof Oil is a topical treatment that benefits the entire hoof from the coronary band to the sole and frog. Whether your horse has an existing hoof issue or you're in need of a general maintenance dressing that looks and smells great, Farriers' Fix has benefits abound. </p>
-              <More onClick={() => scrollToRef(benRef)}>See the list >></More>
+              <More onClick={() => scrollToRef(benRef)}>See the list</More>
             </PageMessage>
             <CardRowLeft>
               <UsageCard>

@@ -8,16 +8,16 @@
     "start": "next start"
   },
   "dependencies": {
-    "isomorphic-unfetch": "^3.1.0",
-    "muicss": "^0.10.2",
-    "next": "10.0.2",
-    "react": "17.0.1",
+    "isomorphic-unfetch": "^4.0.2",
+    "muicss": "^0.10.3",
+    "next": "14.1.0",
+    "react": "18.2.0",
     "react-animated-burgers": "^1.2.8",
-    "react-dom": "17.0.1",
-    "styled-components": "^5.2.1",
-    "swr": "^0.4.0"
+    "react-dom": "18.2.0",
+    "styled-components": "^6.1.8",
+    "swr": "^2.2.4"
   },
   "devDependencies": {
-    "babel-plugin-styled-components": "latest"
+    "babel-plugin-styled-components": "2.1.4"
   }
 }

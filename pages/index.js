@@ -13,17 +13,17 @@ const Home = () => {
     <Layout>
       <Content>
         <PageMessage>
-          <SectionHeading>All Natural Ingredients.</SectionHeading>
+          <SectionHeading>All Natural Ingredients</SectionHeading>
           <p>Farriers’ Fix is made with only high quality, natural ingredients that provide vitamins A, D & E – all essential for good quality hooves.  There are no fillers in this hoof oil, each ingredient used serves a specific purpose.
           Competitors can also be assured that Farriers’ Fix Hoof Oil has tested negative under <strong><a href="https://inside.fei.org/fei/cleansport/horses" target="_blank" rel="noopener noreferrer">FEI guidelines</a></strong>.</p>
-          <Link href="/about"><More>See the full list >></More></Link>
+          <Link href="/about"><More>See the full list </More></Link>
         </PageMessage>
         <CardRowLeft>
           <Link href="/about">
             <Card>
-              <SectionHeading>Developed by Farriers, for Farriers.</SectionHeading>
+              <SectionHeading>Developed by Farriers, for Farriers</SectionHeading>
               <p>The formula was originally developed for use by farriers to treat common hoof problems encountered in many horses, such as soreness, thrush, soft or brittle hoof composition, founder (laminitis), quarter cracks and white line disease.  Experiments with various ingredients to form a topical solution led to the development of what is now called Farriers’ Fix Hoof Oil. </p>
-              <More>More about Farriers' Fix origins>></More>
+              <More>More about Farriers' Fix origins</More>
             </Card>
           </Link>
           <ImageCard>
@@ -33,13 +33,13 @@ const Home = () => {
         <CardRowRight>
           <Link href="/usage">
             <Card>
-              <SectionHeading>Countless Benefits.</SectionHeading>
+              <SectionHeading>Countless Benefits</SectionHeading>
               <CardSpan><strong>FIX SORENESS </strong>
               The unique blend of ingredients in Farriers’ Fix penetrates the hoof capsule to draw out soreness. In many cases, horses that were suffering from stone bruises or trimmed too short, were actually rideable the next day. </CardSpan>
               <CardSpan><strong>FIX DRY, CRACKED HOOVES </strong>
               Many hoof oils are petroleum or lacquer based and seal in or seal out moisture. The all natural ingredients in Farriers’ Fix balance the moisture content and allow the hoof to breathe, which is essential for a healthy hoof.</CardSpan>
               <br />
-              <More>See more benefits>></More>
+              <More>See more benefits</More>
             </Card>
           </Link>
         </CardRowRight>
@@ -92,7 +92,7 @@ export const PageMessage = styled.div `
   a {
     &:hover {
       cursor: pointer;
-      text-decoration: underline;
+      text-decoration: none;
     }
   }
   @media (max-width: 768px) {
@@ -106,7 +106,7 @@ export const SectionHeading = styled.header `
   font-family: 'Sorts Mill Goudy', serif;
   color: #242e62;
   text-align: left;
-  font-size: 200%;
+  font-size: 300%;
   font-weight: 600;
   padding-bottom: 1.25rem;
   @media (max-width: 768px) {
@@ -121,6 +121,13 @@ export const CardRowRight = styled.div `
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+	a {
+    &:hover {
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -129,6 +136,12 @@ export const CardRowLeft = styled.div `
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+	a {
+    &:hover {
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -145,6 +158,7 @@ export const Card = styled.div `
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+	text-decoration: none;
   transition: transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9);
   &:hover {
     cursor: pointer;

@@ -106,7 +106,6 @@ const HeaderWrapper = styled.div`
     font-size: 550%;
     font-weight: 400;
     font-family: 'Sorts Mill Goudy', serif;
-    margin-bottom: 0;
     img {
       height: 175px;
     }
@@ -115,6 +114,7 @@ const HeaderWrapper = styled.div`
     font-family: 'Sorts Mill Goudy', serif;
     font-size: 300%;
     font-weight: 400;
+		color: #a7abc0;
   }
   h3 {
     color: #d3d3d3;
@@ -159,7 +159,7 @@ const HeaderLeft = styled.div `
   padding: 3rem 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   @media (max-width: 768px) {
     padding: 1rem 0.3rem;
   }

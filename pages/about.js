@@ -74,7 +74,7 @@ const About = ({endorsementData}) => {
           <Content>
             <PageMessage>
               <p><i>"Initially, we were attracted to the ingredients in Farriers’ Fix Hoof Oil. With that combination, how could it not be good for the hoof? Since using the oil on a regular basis, we’ve noticed an improvement in the quality of the hoof wall. Now, it’s a staple in our program." <strong>-Anne Kursinski, Five-time USET Show Jumping Olympian</strong></i></p>
-              <More onClick={() => scrollToRef(endorsementRef)}>See more like this >></More>
+              <More onClick={() => scrollToRef(endorsementRef)}>See more like this</More>
             </PageMessage>
             <Ingredients>
               <HeaderSubComponent />
@@ -84,7 +84,7 @@ const About = ({endorsementData}) => {
                 <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/paul.jpg" alt='Paul Heller shoeing'/>
               </AboutCard>
               <AboutCard>
-                <SectionHeading>Developed by Farriers, for Farriers.</SectionHeading>
+                <SectionHeading>Developed by Farriers, for Farriers</SectionHeading>
                 <p>"I originally developed this product to sell to other farriers. Like most farriers, I have always encountered the basic problems found in many horses – sore feet, thrush, feet that are either too soft or too hard and brittle, founder (laminitis), quarter cracks and white line disease. I started looking for a topical treatment and experimented with various ingredients until I came up with what I now call Farriers’ Fix Hoof Oil."</p>
               </AboutCard>
             </CardRowLeft>
