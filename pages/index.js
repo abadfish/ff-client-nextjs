@@ -1,13 +1,9 @@
-import { useState } from 'react'
 import Link from 'next/link'
 import styled from 'styled-components'
 import Layout from '../components/Layout'
 
 
 const Home = () => {
-
-  const [showCard, setShowCard] = useState(false)
-
 
   return (
     <Layout>

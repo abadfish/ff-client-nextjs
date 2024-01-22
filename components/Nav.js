@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import styles from '../styles/Home.module.css'
 import { HamburgerThreeDYReverse } from 'react-animated-burgers'
 import Link from 'next/link'
 
@@ -30,7 +29,7 @@ const Nav = () => {
           <Link href="/">Home</Link>
           <Link href="/about">About</Link>
           <Link href="/usage">Usage</Link>
-          <Link href="/buy">Buy</Link>
+          <Link href="/buy">Retailers</Link>
         </Menu>
         :
         null
@@ -41,7 +40,7 @@ const Nav = () => {
         {/*<LogoLink src='https://res.cloudinary.com/abadfish/image/upload/v1607394173/ffix/farriers-fix-logo-vertical' alt='ff-logo' />*/}
         <LogoLink src='https://res.cloudinary.com/abadfish/image/upload/v1607394173/ffix/logo_FF_white_horse_transparent_bg.png' alt='ff-logo' />
         <LinkCell><Link href="/usage">Usage</Link></LinkCell>
-        <LinkCell><Link href="/buy">Buy</Link></LinkCell>
+        <LinkCell><Link href="/buy">Retailers</Link></LinkCell>
       </NavBar>
     </>
   )

@@ -1,15 +1,20 @@
+'use client'
 import { useState, useReducer, useRef } from 'react'
 import styled from 'styled-components'
 import Button from 'muicss/lib/react/button'
 import Layout from '../components/Layout'
 import Modal from '../components/Modal'
-import { Content } from './index'
 import { server, mapsKey } from '../config'
 
 export async function getAccountsData() {
-  const res = await fetch(`${ server }/accounts`)
-  const accounts = await res.json()
-  return { accounts }
+	try {
+		const res = await fetch(`${ server }/accounts`)
+		const accounts = await res.json()
+		return { accounts }
+	} catch (err) {
+		console.log(err)
+		return { accounts: [] }
+	}
 }
 
 export async function getStaticProps() {

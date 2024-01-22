@@ -1,4 +1,5 @@
-import { useState, useRef } from 'react'
+'use client'
+import { useRef } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
 import { Content, PageMessage, SectionHeading, CardRowLeft, CardRowRight, More } from './index'
@@ -7,10 +8,14 @@ import { server } from '../config'
 
 
 export async function getEndorsementsData() {
-  const res = await fetch(`${ server }/endorsements`)
-  console.log(server)
-  const endorsements = await res.json()
-  return { endorsements }
+	try {
+		const res = await fetch(`${ server }/endorsements`)
+		const endorsements = await res.json()
+		return { endorsements }
+	} catch (err) {
+		console.log(err)
+		return { endorsements: [] }
+	}
 }
 
 export async function getStaticProps() {
@@ -26,11 +31,10 @@ export const scrollToRef = (ref) => {
   window.scrollTo({
     behavior: "smooth",
     top: ref.current.offsetTop
-    })
+  })
 }
 
 const About = ({endorsementData}) => {
-  console.log(`server is ${server}`)
   const endorsementRef = useRef()
 
   const endorsementsNoQuote = endorsementData.endorsements.filter(e => !e.quote).map((e, i) => (

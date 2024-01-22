@@ -114,7 +114,6 @@ const HeaderWrapper = styled.div`
     font-family: 'Sorts Mill Goudy', serif;
     font-size: 300%;
     font-weight: 400;
-		color: #a7abc0;
   }
   h3 {
     color: #d3d3d3;

@@ -6,7 +6,7 @@ import { scrollToRef } from './about'
 
 const Benefits = () => {
 
-  const benRef = useRef()
+  const benefitRef = useRef()
 
     return (
         <Layout>
@@ -14,30 +14,31 @@ const Benefits = () => {
             <PageMessage>
               <SectionHeading>For daily use or therapeutic application.</SectionHeading>
               <p>Farriers’ Fix Hoof Oil is a topical treatment that benefits the entire hoof from the coronary band to the sole and frog. Whether your horse has an existing hoof issue or you're in need of a general maintenance dressing that looks and smells great, Farriers' Fix has benefits abound. </p>
-              <More onClick={() => scrollToRef(benRef)}>See the list</More>
+              <More onClick={() => scrollToRef(benefitRef)}>See the list</More>
             </PageMessage>
-            <CardRowLeft>
-              <UsageCard>
-                <SectionHeading>For horses with hoof issues:</SectionHeading>
-                <p>Sore Feet, Quarter Cracks, Laminitis, Thrush, etc. Apply Farriers’ Fix Hoof Oil to clean and dry hoof exterior, sole and frog every day.
-                Allow 5-10 minutes for hoof to absorb oil before returning to stall.</p>
-              </UsageCard>
-              <UsageCard>
-                <img src="https://res.cloudinary.com/abadfish/image/upload/v1614555452/ffix/canter.jpg" alt="hoof issues"/>
-              </UsageCard>
-            </CardRowLeft>
-            <CardRowRight>
-              <UsageCard>
-                <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/packing.jpg" alt="packing a hoof"/>
-              </UsageCard>
-              <UsageCard>
-                <SectionHeading>For use under pads:</SectionHeading>
-                <p>Using Farriers’ Fix under the pads helps to prevent thrush and other bacteria from forming. By painting the sole and frog and saturating the packing with Farriers’ Fix, the oil will feed into the hoof rather than wick it away. Leather pads do not break down as fast when saturated with Farriers’ Fix.</p>
-              </UsageCard>
-            </CardRowRight>
-
+						<UsageContainer>
+							<CardRowLeft>
+								<UsageCard width='40%'>
+									<SectionHeading>For horses with hoof issues:</SectionHeading>
+									<p>To treat sore feet, quarter cracks, laminitis, or thrush, apply Farriers’ Fix Hoof Oil to clean and dry hoof exterior, sole and frog daily for best results.
+									Allow 5-10 minutes for hoof to absorb oil before returning to stall.</p>
+								</UsageCard>
+								<UsageCard width='50%'>
+									<img src="https://res.cloudinary.com/abadfish/image/upload/v1614555452/ffix/canter.jpg" alt="hoof issues"/>
+								</UsageCard>
+							</CardRowLeft>
+							<CardRowRight>
+								<UsageCard width='50%'>
+									<img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/packing.jpg" alt="packing a hoof"/>
+								</UsageCard>
+								<UsageCard width='40%'>
+									<SectionHeading>For use under pads:</SectionHeading>
+									<p>Using Farriers’ Fix under the pads helps to prevent thrush and other bacteria from forming. By painting the sole and frog and saturating the packing with Farriers’ Fix, the oil will feed into the hoof rather than wick it away. Leather pads do not break down as fast when saturated with Farriers’ Fix.</p>
+								</UsageCard>
+							</CardRowRight>
+						</UsageContainer>
           </Content>
-          <UsageSection ref={ benRef }>
+          <UsageListSection ref={ benefitRef }>
             <SectionHeading>Fixes...</SectionHeading>
             <UsageList>
               <h2>SORENESS</h2>
@@ -58,23 +59,25 @@ const Benefits = () => {
               <h2>FOUNDER (LAMINITIS)</h2>
               <span>Farriers’ fix has been successful in relieving the soreness associated with laminitis and fights the bacteria that gets into the laminae</span>
             </UsageList>
-          </UsageSection>
+          </UsageListSection>
         </Layout>
     )
 }
 
 export default Benefits
 
-
+const UsageContainer = styled.div `
+	margin: 5%;
+`
 const UsageCard = styled.div `
-  width: 50%;
+  width: ${props => props.width};
   min-height: 400px;
   background-color: rgba(255,255,255,1);
   padding: 3rem;
   color: #242e62;
   text-align: left;
   p {
-    font-size: 120%;
+    font-size: 140%;
     text-align: left;
   }
   img {
@@ -91,13 +94,13 @@ const UsageCard = styled.div `
   }
 `
 
-const UsageSection = styled.section `
+const UsageListSection = styled.section `
   background-color: #f7f7f7;
   display: flex;
   flex-direction: column;
   min-height: 600px;
   width: 100vw;
-  padding: 3rem;
+  padding: 3rem 8rem;
   text-align: left;
   clear: both;
   @media (max-width: 768px) {

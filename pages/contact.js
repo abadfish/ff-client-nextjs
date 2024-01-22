@@ -1,3 +1,4 @@
+'use client'
 import { useState, useRef } from 'react'
 import styled from 'styled-components'
 import Layout from '../components/Layout'
@@ -18,31 +19,56 @@ const { server } = require('../config')
 //   console.log(result)
 // }
 
-const Success = () => {
+const Response = (res) => {
   return (
-    <SuccessMsg>
+    <ResponseMsg>
       <img src="https://res.cloudinary.com/abadfish/image/upload/v1606877302/ffix/farriers-fix-logo-horizontal.jpg" alt="ff-logo"/>
-      <div>
-        <p>Thanks for reaching out!</p>
-        <p>We'll get back to you shortly.</p>
-      </div>
-    </SuccessMsg>
+			{res === 'success' ?
+				<div>
+					<p>Thanks for reaching out!</p>
+					<p>We'll get back to you shortly.</p>
+				</div>
+			:
+				<div>
+					<p>Something went wrong</p>
+					<p>Please try again later</p>
+				</div>
+			}
+    </ResponseMsg>
   )
+}
+
+const Error = () => {
+	return (
+		<ErrorMsg>
+			<img src="https://res.cloudinary.com/abadfish/image/upload/v1606877302/ffix/farriers-fix-logo-horizontal.jpg" alt="ff-logo"/>
+			<div>
+				<p>Sorry, something went wrong.</p>
+				<p>Please try again later.</p>
+			</div>
+		</ErrorMsg>
+	)
 }
 
 const Contact = () => {
 
   const [msgSuccess, setMsgSuccess] = useState(false)
+	const [error, setError] = useState(false)
 
   async function sendMessage(contact){
-    const res = await fetch(`${ server }/send_email`, {
-      body: JSON.stringify(contact),
-      headers: {'Content-Type': 'application/json'},
-      method: 'POST'
-    })
-    const result = await res.json()
-    console.log(result)
-    processResult(result)
+		try {
+			const res = await fetch(`${ server }/send_email`, {
+				body: JSON.stringify(contact),
+				headers: {'Content-Type': 'application/json'},
+				method: 'POST'
+			})
+			const result = await res.json()
+			console.log(result)
+			processResult(result)
+		} catch (err) {
+			console.log(err)
+			setError(true)
+		}
   }
 
   const processResult = (result) => {
@@ -74,7 +100,7 @@ const Contact = () => {
     <Layout>
       { msgSuccess ?
         <Modal onClose={ () => setMsgSuccess(false) }>
-          <Success />
+          <Response res='success' />
           <Button
             onClick={ () => setMsgSuccess(false) }
             size='small'
@@ -83,6 +109,17 @@ const Contact = () => {
         :
         null
       }
+			{ error ?
+				<Modal onClose={ () => setError(false) }>
+					<Response res={ error } />
+          <Button
+            onClick={ () => setError(false) }
+            size='small'
+            variant='raised'>Close</Button>
+        </Modal>
+				:
+				null
+			}
       <ContactPage>
         <ContactInfo>
           <img src="https://res.cloudinary.com/abadfish/image/upload/v1607394173/ffix/logo_FF_horse_transparent.png" alt="ff-logo-vertical"/>
@@ -151,7 +188,7 @@ const ContactForm = styled.section `
   }
 `
 
-const SuccessMsg = styled.div `
+const ResponseMsg = styled.div `
   display: flex;
   flex-direction: column;
   justify-content: space-around;
