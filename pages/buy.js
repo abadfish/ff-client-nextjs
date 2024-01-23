@@ -9,6 +9,7 @@ import { server, mapsKey } from '../config'
 export async function getAccountsData() {
 	try {
 		const res = await fetch(`${ server }/accounts`)
+		console.log('res', res)
 		const accounts = await res.json()
 		return { accounts }
 	} catch (err) {
