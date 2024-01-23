@@ -1,32 +1,33 @@
-'use client'
-import { useState, useReducer, useRef } from 'react'
+// 'use client'
+import { useState, useReducer, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import Button from 'muicss/lib/react/button'
 import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 import { server, mapsKey } from '../config'
 
-export async function getAccountsData() {
+
+// export async function getStaticProps() {
+//   const allAccountsData = await getAccountsData()
+//   return {
+//     props: {
+//       allAccountsData
+//     },
+//     revalidate: 2,
+//   }
+// }
+
+const getAccountsData = async () => {
 	try {
-		const res = await fetch(`${ server }/accounts`)
-		console.log('res', res)
+		const res = await fetch(`${ server }/accounts`, { next: { revalidate: 3600 } })
 		const accounts = await res.json()
-		return { accounts }
+		return accounts
 	} catch (err) {
 		console.log(err)
-		return { accounts: [] }
+		return []
 	}
 }
 
-export async function getStaticProps() {
-  const allAccountsData = await getAccountsData()
-  return {
-    props: {
-      allAccountsData
-    },
-    revalidate: 2,
-  }
-}
 
 export const filterReducer = (state, action) => {
   switch(action.type) {
@@ -54,8 +55,18 @@ const Map = ({ account }) => {
   )
 }
 
-const Buy = ({ allAccountsData }) => {
+const Buy = () => {
 
+	const [allAccountsData, setAllAccountsData] = useState([])
+	const [loading, setLoading] = useState(true)
+	const [error, setError] = useState(null)
+
+	useEffect(() => {
+		getAccountsData().then(
+			response => setAllAccountsData(response),
+		)
+	},[])
+	
   const [ filter, dispatchFilter ] = useReducer(filterReducer, 'ALL')
   const [ province, setProvince ] = useState('')
   const [ selectedAccount, setSelectedAccount ] = useState(null)
@@ -68,7 +79,7 @@ const Buy = ({ allAccountsData }) => {
     scrollToSection('accounts')
   }
 
-  const filteredAccounts = allAccountsData.accounts.filter(account => {
+  const filteredAccounts = allAccountsData?.filter(account => {
     if (filter === 'ALL') {
       return true
     }
@@ -92,7 +103,7 @@ const Buy = ({ allAccountsData }) => {
     // scrollToAccount(i)
   }
 
-  const accountList = filteredAccounts.map((a, i) => (
+  const accountList = filteredAccounts?.map((a, i) => (
     <AccountCard key={i} id={i} onClick={() => handleShowLocation(a, i)}>
       <div><h3>{a.company}</h3></div>
       <div>{a.address1}</div>
@@ -122,7 +133,7 @@ const Buy = ({ allAccountsData }) => {
     })
   }
 
-  const stateList = Array.from(new Set(allAccountsData.accounts.map(a => a.state)))
+  const stateList = Array.from(new Set(allAccountsData.map(a => a.state)))
 
   return (
       <Layout>
