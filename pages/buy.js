@@ -11,7 +11,7 @@ const getAccountsData = async () => {
 	try {
 		const res = await fetch(`${ server }/accounts`, { next: { revalidate: 3600 } })
 		const accounts = await res.json()
-		return accounts.filter(a => a.active)
+		return accounts
 	} catch (err) {
 		console.log(err)
 		return []
