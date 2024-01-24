@@ -11,7 +11,7 @@ const getAccountsData = async () => {
 	try {
 		const res = await fetch(`${ server }/accounts`, { next: { revalidate: 3600 } })
 		const accounts = await res.json()
-		return accounts
+		return accounts.filter(a => a.active)
 	} catch (err) {
 		console.log(err)
 		return []
@@ -89,7 +89,6 @@ const Buy = () => {
   const handleShowLocation = (a, i)=> {
     console.log(window.innerHeight)
     setSelectedAccount(a)
-    // scrollToAccount(i)
   }
 
   const accountList = filteredAccounts?.map((a, i) => (
