@@ -7,16 +7,6 @@ import Modal from '../components/Modal'
 import { server, mapsKey } from '../config'
 
 
-// export async function getStaticProps() {
-//   const allAccountsData = await getAccountsData()
-//   return {
-//     props: {
-//       allAccountsData
-//     },
-//     revalidate: 2,
-//   }
-// }
-
 const getAccountsData = async () => {
 	try {
 		const res = await fetch(`${ server }/accounts`, { next: { revalidate: 3600 } })
@@ -27,7 +17,6 @@ const getAccountsData = async () => {
 		return []
 	}
 }
-
 
 export const filterReducer = (state, action) => {
   switch(action.type) {

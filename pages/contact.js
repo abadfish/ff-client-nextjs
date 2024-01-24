@@ -6,20 +6,9 @@ import Modal from '../components/Modal'
 import Input from 'muicss/lib/react/input'
 import Textarea from 'muicss/lib/react/textarea'
 import Button from 'muicss/lib/react/button'
-import { SectionHeading } from './index'
 const { server } = require('../config')
 
-// export async function sendMessage(contact) {
-//   const res = await fetch(`${server}/send_email`, {
-//     body: JSON.stringify(contact),
-//     headers: {'Content-Type': 'application/json'},
-//     method: 'POST'
-//   })
-//   const result = await res.json()
-//   console.log(result)
-// }
-
-const Response = (res) => {
+const Response = ({res}) => {
   return (
     <ResponseMsg>
       <img src="https://res.cloudinary.com/abadfish/image/upload/v1606877302/ffix/farriers-fix-logo-horizontal.jpg" alt="ff-logo"/>
@@ -38,18 +27,6 @@ const Response = (res) => {
   )
 }
 
-const Error = () => {
-	return (
-		<ErrorMsg>
-			<img src="https://res.cloudinary.com/abadfish/image/upload/v1606877302/ffix/farriers-fix-logo-horizontal.jpg" alt="ff-logo"/>
-			<div>
-				<p>Sorry, something went wrong.</p>
-				<p>Please try again later.</p>
-			</div>
-		</ErrorMsg>
-	)
-}
-
 const Contact = () => {
 
   const [msgSuccess, setMsgSuccess] = useState(false)
@@ -63,7 +40,6 @@ const Contact = () => {
 				method: 'POST'
 			})
 			const result = await res.json()
-			console.log(result)
 			processResult(result)
 		} catch (err) {
 			console.log(err)
