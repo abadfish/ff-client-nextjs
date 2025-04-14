@@ -1,6 +1,7 @@
-// 'use client'
+'use client'
 import { useState, useReducer, useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
 import Button from 'muicss/lib/react/button'
 import Layout from '../components/Layout'
 import Modal from '../components/Modal'
@@ -46,9 +47,19 @@ const Map = ({ account }) => {
 
 const Buy = () => {
 
-	const [allAccountsData, setAllAccountsData] = useState([])
+  const [allAccountsData, setAllAccountsData] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
+  
+  const [showGoogleMap, setShowGoogleMap] = useState(true)
+
+  const { isLoaded, loadError } = useLoadScript({
+    googleMapsApiKey: mapsKey,
+    // libraries: ['places'],
+  })
+
+  const mapCenter = { lat: 40.7128, lng: -74.0060 }; // Example: New York City
+  const zoomLevel = 10;
 
 	useEffect(() => {
 		getAccountsData().then(
@@ -122,32 +133,70 @@ const Buy = () => {
   }
 
   const stateList = Array.from(new Set(allAccountsData.map(a => a.state)))
+  
+  const stores = [
+    { id: 1, name: 'Store A', latitude: 40.748817, longitude: -73.985428 },
+    { id: 2, name: 'Store B', latitude: 40.758817, longitude: -73.975428 },
+  ];
+
+  if (!isLoaded) return <div>Loading...</div>;
 
   return (
-      <Layout>
-        { selectedAccount ?
-          <Modal onClose={ () => setSelectedAccount(null) }>
-            <Map account={ selectedAccount }/>
-            <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
-          </Modal>
-          :
-          null
-        }
-        <StateList>
-          { stateList.map((s, i) => (
-            <StateDiv onClick={() => chooseProvince(s)} key={i} activep={activeProvince(s)}>
-              <span>{s}</span>
-            </StateDiv>
+    <Layout>
+      { selectedAccount ?
+        <Modal onClose={ () => setSelectedAccount(null) }>
+        <Map account={ selectedAccount }/>
+        <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
+        </Modal>
+        :
+        null
+      }
+      <MapToggle>
+        <MapsButton 
+          showGoogleMap={showGoogleMap} 
+          onClick={ () => setShowGoogleMap(true) }
+        >Search map</MapsButton> 
+        <StateButton 
+          showGoogleMap={showGoogleMap} 
+          onClick={ () => setShowGoogleMap(false) }
+        >Search by state</StateButton>
+      </MapToggle>
+      
+      {
+        showGoogleMap ?
+        
+        <GoogleMap
+          mapContainerStyle={{ width: '100%', height: '400px' }}
+          center={mapCenter}
+          zoom={zoomLevel}
+        >
+          {stores.map((store) => (
+            <Marker
+              key={store.id}
+              position={{ lat: store.latitude, lng: store.longitude }}
+              title={store.name}
+            />
           ))}
-          <StateDiv onClick={()=> chooseProvince('ALL')} key={100} activep={activeProvince('ALL')}>
-            <span >ALL</span>
-          </StateDiv>
-        </StateList>
+        </GoogleMap>
+        :
+        <div>
+          <StateList>
+            { stateList.map((s, i) => (
+              <StateDiv onClick={() => chooseProvince(s)} key={i} activep={activeProvince(s)}>
+                <span>{s}</span>
+              </StateDiv>
+            ))}
+            <StateDiv onClick={()=> chooseProvince('ALL')} key={100} activep={activeProvince('ALL')}>
+              <span >ALL</span>
+            </StateDiv>
+          </StateList>
 
-        <AccountsPage ref={ accountsRef } id='accounts'>
-          { accountList }
-        </AccountsPage>
-      </Layout>
+          <AccountsPage ref={ accountsRef } id='accounts'>
+            { accountList }
+          </AccountsPage>
+        </div>
+      }
+    </Layout>
   )
 }
 
@@ -234,4 +283,35 @@ const MapDiv = styled.div `
   div {
     margin-bottom: 1rem;
   }
+`
+
+const MapsButton = styled.button `
+  text-decoration: ${props => 
+    props.showGoogleMap === true ? "underline" : "none"
+  };
+`
+const MapToggle = styled.div `
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0;
+  button {
+    // background: #242e62;
+    // color: white;
+    color: #242e62;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    margin: 0 1rem;
+    font-size: 1.2em;
+    cursor: pointer;
+    &:hover {
+      background: #739ac5;
+    }
+  }
+`
+const StateButton = styled.button `
+  text-decoration: ${props => 
+    props.showGoogleMap === false ? "underline" : "none"
+  };
+  
 `
