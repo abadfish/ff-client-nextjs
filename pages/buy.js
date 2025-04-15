@@ -203,7 +203,6 @@ const Buy = () => {
   if (!isLoaded || loading) return <div>Loading...</div>;
   if (loadError) return <div>Error loading maps</div>;
   if (error) return <div>Error loading accounts</div>;
-  if (allAccountsData.length === 0) return <div>No accounts found</div>;
 
   return (
     <Layout>
