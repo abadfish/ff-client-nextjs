@@ -1,7 +1,16 @@
-// 'use client'
+'use client'
 import { useState, useReducer, useRef, useEffect } from 'react'
 import styled from 'styled-components'
+import { 
+  GoogleMap, 
+  useJsApiLoader,
+  Marker, 
+  InfoWindow,
+  Autocomplete
+} from '@react-google-maps/api';
 import Button from 'muicss/lib/react/button'
+import Input from 'muicss/lib/react/input'
+
 import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 import { server, mapsKey } from '../config'
@@ -46,14 +55,17 @@ const Map = ({ account }) => {
 
 const Buy = () => {
 
-	const [allAccountsData, setAllAccountsData] = useState([])
+  const [allAccountsData, setAllAccountsData] = useState([])
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
+  
 
 	useEffect(() => {
+    setLoading(true)
 		getAccountsData().then(
 			response => setAllAccountsData(response),
 		)
+    setLoading(false)
 	},[])
 	
   const [ filter, dispatchFilter ] = useReducer(filterReducer, 'ALL')
@@ -86,27 +98,17 @@ const Buy = () => {
     }
   }
 
-  const handleShowLocation = (a, i)=> {
-    console.log(window.innerHeight)
-    setSelectedAccount(a)
-  }
+  const handleShowLocation = (a, i)=> { setSelectedAccount(a) }
 
   const accountList = filteredAccounts?.map((a, i) => (
     <AccountCard key={i} id={i} onClick={() => handleShowLocation(a, i)}>
       <div><h3>{a.company}</h3></div>
-      <div>{a.address1}</div>
-      <div>{a.city}, {a.state} {a.zip}</div>
-      <div>{a.phone}</div>
+      <div><span>{a.address1}</span></div>
+      <div><span>{a.city}, {a.state} {a.zip}</span></div>
+      <div><span>{a.phone}</span></div>
       <Website><span>{a.website}</span></Website>
     </AccountCard>
   ))
-
-  const scrollToAccount = id => {
-    let el = document.getElementById(id)
-    let elRect = el.getBoundingClientRect().top
-    console.log(elRect)
-    // document.querySelector(id).scrollIntoView({behavior: 'smooth', block:'end'})
-  }
 
   const scrollToSection = section => {
     let el = document.getElementById(section);
@@ -122,32 +124,175 @@ const Buy = () => {
   }
 
   const stateList = Array.from(new Set(allAccountsData.map(a => a.state)))
+  
+  const [showGoogleMap, setShowGoogleMap] = useState(true)
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: mapsKey,
+    libraries: ['places'],
+  })
+
+  const [mapView, setMapView] = useState({
+    mapCenter: { lat: 41.4925, lng: -99.9018 },
+    zoomLevel: 4,
+  })
+
+  const mapRef = useRef();
+	const autocompleteRef = useRef();
+
+  const onLoadMap = (map) => {
+		mapRef.current = map
+	}
+
+	const onLoadAutocomplete = (autocomplete) => {
+		autocompleteRef.current = autocomplete
+	}
+
+	const handlePlaceChanged = () => {
+		const { geometry } = autocompleteRef.current.getPlace();
+		const bounds = new window.google.maps.LatLngBounds();
+		if (geometry.viewport) {
+			bounds.union(geometry.viewport);
+		} else {
+			bounds.extend(geometry.location);
+		}
+		mapRef.current.fitBounds(bounds);
+    setMapView({
+      mapCenter: { lat: geometry.location.lat(), lng: geometry.location.lng() },
+      zoomLevel: 9,
+    })
+	};
+  
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371;
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+    return distance;
+  };
+
+  const deg2rad = (deg) => {
+    return deg * (Math.PI / 180);
+  };
+
+  const sortedStores = mapView.mapCenter.lat
+    ? [...allAccountsData].sort((a, b) => {
+        const distanceA = calculateDistance(mapView.mapCenter.lat, mapView.mapCenter.lng, a.latitude, a.longitude);
+        const distanceB = calculateDistance(mapView.mapCenter.lat, mapView.mapCenter.lng, b.latitude, b.longitude);
+        return distanceA - distanceB;
+      })
+    : allAccountsData;
+  
+    const sortedAccountList = sortedStores?.map((a, i) => (
+      <AccountCard key={i} id={i} onClick={() => handleShowLocation(a, i)}>
+        <div><h3>{a.company}</h3></div>
+        <div>{a.address1}</div>
+        <div>{a.city}, {a.state} {a.zip}</div>
+        <div>{a.phone}</div>
+        <Website><span>{a.website}</span></Website>
+      </AccountCard>
+    ));
+
+  const [selectedStore, setSelectedStore] = useState(null);
+
+  if (!isLoaded || loading) return <div>Loading...</div>;
+  if (loadError) return <div>Error loading maps</div>;
+  if (error) return <div>Error loading accounts</div>;
 
   return (
-      <Layout>
-        { selectedAccount ?
-          <Modal onClose={ () => setSelectedAccount(null) }>
-            <Map account={ selectedAccount }/>
-            <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
-          </Modal>
-          :
-          null
-        }
-        <StateList>
-          { stateList.map((s, i) => (
-            <StateDiv onClick={() => chooseProvince(s)} key={i} activep={activeProvince(s)}>
-              <span>{s}</span>
+    <Layout>
+      <MapToggle>
+        <MapsButton 
+          showGoogleMap={showGoogleMap} 
+          onClick={ () => setShowGoogleMap(true) }
+        >Search map</MapsButton> |
+        <StateButton 
+          showGoogleMap={showGoogleMap} 
+          onClick={ () => setShowGoogleMap(false) }
+        >Search by state</StateButton>
+      </MapToggle>
+      {
+        showGoogleMap && allAccountsData.length > 0 ?
+        <div>
+          <GoogleMap
+            mapContainerStyle={{ width: '100%', height: '400px' }}
+            center={mapView.mapCenter}
+            zoom={mapView.zoomLevel}
+            onLoad={onLoadMap}
+          >
+            <Autocomplete
+              onLoad={onLoadAutocomplete}
+              onPlaceChanged={handlePlaceChanged}
+            >
+              <MapSearchInput
+                placeholder="🔍  Find Farriers' Fix near you"
+                type="text"
+              />
+            </Autocomplete>
+            {allAccountsData?.map((store) => (
+              <Marker
+                key={store.id}
+                position={{ lat: parseFloat(store.latitude), lng: parseFloat(store.longitude) }}
+                title={store.company}
+                onClick={() => setSelectedStore(store)}
+              />
+            ))}
+            {selectedStore && (
+              <InfoWindow
+                position={{ lat: parseFloat(selectedStore.latitude), lng: parseFloat(selectedStore.longitude) }}
+                onCloseClick={() => setSelectedStore(null)}
+              >
+                <div>
+                  <h3>{selectedStore.company}</h3>
+                  <p>{selectedStore.address1}</p>
+                  <p>{selectedStore.city}, {selectedStore.state} {selectedStore.zip}</p>
+                </div>
+              </InfoWindow>
+            )}
+            { selectedAccount ?
+              <Modal onClose={ () => setSelectedAccount(null) }>
+                <Map account={ selectedAccount }/>
+                <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
+              </Modal>
+              :
+              null
+            }
+          </GoogleMap>
+          <AccountsPage ref={ accountsRef } id='accounts'>
+            { sortedAccountList }
+          </AccountsPage>
+        </div>
+        :
+        <div>
+          <StateList>
+            { stateList.map((s, i) => (
+              <StateDiv onClick={() => chooseProvince(s)} key={i} activep={activeProvince(s)}>
+                <span>{s}</span>
+              </StateDiv>
+            ))}
+            <StateDiv onClick={()=> chooseProvince('ALL')} key={100} activep={activeProvince('ALL')}>
+              <span >ALL</span>
             </StateDiv>
-          ))}
-          <StateDiv onClick={()=> chooseProvince('ALL')} key={100} activep={activeProvince('ALL')}>
-            <span >ALL</span>
-          </StateDiv>
-        </StateList>
-
-        <AccountsPage ref={ accountsRef } id='accounts'>
-          { accountList }
-        </AccountsPage>
-      </Layout>
+          </StateList>
+          { selectedAccount ?
+            <Modal onClose={ () => setSelectedAccount(null) }>
+              <Map account={ selectedAccount }/>
+              <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
+            </Modal>
+            :
+            null
+          }
+          <AccountsPage ref={ accountsRef } id='accounts'>
+            { accountList }
+          </AccountsPage>
+        </div>
+      }
+    </Layout>
   )
 }
 
@@ -217,6 +362,14 @@ const AccountCard = styled.div `
   }
   @media (max-width: 480px) {
     margin: 1rem 0;
+    height: 120px;
+    margin: 10px;
+    h3 {
+      font-size: 1.2em;
+    }
+    div {
+      font-size: 0.9em;
+    }
   }
 `
 const Website = styled.div `
@@ -233,5 +386,51 @@ const MapDiv = styled.div `
   }
   div {
     margin-bottom: 1rem;
+  }
+`
+
+const MapsButton = styled.button `
+  text-decoration: ${props => 
+    props.showGoogleMap === true ? "underline" : "none"
+  };
+`
+const MapToggle = styled.div `
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.5rem 0;
+  button {
+    background: #fff;
+    color: #242e62;
+    border: none;
+    border-radius: 5px;
+    padding: 0.2rem 1rem;
+    margin: 0 0.2rem;
+    font-size: 1em;
+    cursor: pointer;
+    &:hover {
+      background: #739ac5;
+    }
+  }
+`
+const StateButton = styled.button `
+  text-decoration: ${props => 
+    props.showGoogleMap === false ? "underline" : "none"
+  };
+  
+`
+const MapSearchInput = styled.input `
+  width: 40%;
+  height: 40px;
+  padding: 0.5rem;
+  margin-top: 0.6rem;
+  margin-left: 15rem;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  position: absolute;
+  @media (max-width: 480px) {
+    margin-top: 3.5rem;
+    margin-left: 0.6rem;
+    width: 90%;
   }
 `

@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-google-maps/api": "^2.20.6",
     "isomorphic-unfetch": "^4.0.2",
     "muicss": "^0.10.3",
     "next": "14.1.0",
