@@ -1,8 +1,18 @@
 'use client'
 import { useState, useReducer, useRef, useEffect } from 'react'
 import styled from 'styled-components'
-import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api';
+import { 
+  GoogleMap, 
+  useLoadScript,
+  useJsApiLoader,
+  DirectionsRenderer,
+  Marker, 
+  InfoWindow,
+  Autocomplete
+} from '@react-google-maps/api';
 import Button from 'muicss/lib/react/button'
+import Input from 'muicss/lib/react/input'
+
 import Layout from '../components/Layout'
 import Modal from '../components/Modal'
 import { server, mapsKey } from '../config'
@@ -51,20 +61,13 @@ const Buy = () => {
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
   
-  const [showGoogleMap, setShowGoogleMap] = useState(true)
-
-  const { isLoaded, loadError } = useLoadScript({
-    googleMapsApiKey: mapsKey,
-    // libraries: ['places'],
-  })
-
-  const mapCenter = { lat: 40.7128, lng: -74.0060 }; // Example: New York City
-  const zoomLevel = 10;
 
 	useEffect(() => {
+    setLoading(true)
 		getAccountsData().then(
 			response => setAllAccountsData(response),
 		)
+    setLoading(false)
 	},[])
 	
   const [ filter, dispatchFilter ] = useReducer(filterReducer, 'ALL')
@@ -135,11 +138,62 @@ const Buy = () => {
   const stateList = Array.from(new Set(allAccountsData.map(a => a.state)))
   
   const stores = [
+    { id: 182,
+      "company": "Alabama Blue Ribbon Tack",
+      "address1": "2200 Commerce Circle",
+      "city": "Pelham",
+      "state": "AL",
+      "zip": "35124",
+      "phone": "",
+      "website": "",
+      latitude: 33.335523,
+      longitude: -86.7896608
+    },
     { id: 1, name: 'Store A', latitude: 40.748817, longitude: -73.985428 },
     { id: 2, name: 'Store B', latitude: 40.758817, longitude: -73.975428 },
   ];
 
-  if (!isLoaded) return <div>Loading...</div>;
+  const [showGoogleMap, setShowGoogleMap] = useState(true)
+
+  const { isLoaded, loadError } = useJsApiLoader({
+    googleMapsApiKey: mapsKey,
+    libraries: ['places'],
+  })
+
+  const [mapView, setMapView] = useState({
+    mapCenter: { lat: 41.4925, lng: -99.9018 },
+    zoomLevel: 4,
+  })
+
+  const mapRef = useRef();
+	const autocompleteRef = useRef();
+
+  const onLoadMap = (map) => {
+		mapRef.current = map
+	}
+
+	const onLoadAutocomplete = (autocomplete) => {
+		autocompleteRef.current = autocomplete
+	}
+
+	const handlePlaceChanged = () => {
+		const { geometry } = autocompleteRef.current.getPlace();
+		const bounds = new window.google.maps.LatLngBounds();
+		if (geometry.viewport) {
+			bounds.union(geometry.viewport);
+		} else {
+			bounds.extend(geometry.location);
+		}
+		mapRef.current.fitBounds(bounds);
+    setMapView({
+      mapCenter: { lat: geometry.location.lat(), lng: geometry.location.lng() },
+      zoomLevel: 8,
+    })
+	}
+
+  const [selectedPlace, setSelectedPlace] = useState(null);
+
+  if (!isLoaded || loading) return <div>Loading...</div>;
 
   return (
     <Layout>
@@ -155,7 +209,7 @@ const Buy = () => {
         <MapsButton 
           showGoogleMap={showGoogleMap} 
           onClick={ () => setShowGoogleMap(true) }
-        >Search map</MapsButton> 
+        >Search map</MapsButton> |
         <StateButton 
           showGoogleMap={showGoogleMap} 
           onClick={ () => setShowGoogleMap(false) }
@@ -163,21 +217,32 @@ const Buy = () => {
       </MapToggle>
       
       {
-        showGoogleMap ?
-        
-        <GoogleMap
-          mapContainerStyle={{ width: '100%', height: '400px' }}
-          center={mapCenter}
-          zoom={zoomLevel}
-        >
-          {stores.map((store) => (
-            <Marker
-              key={store.id}
-              position={{ lat: store.latitude, lng: store.longitude }}
-              title={store.name}
-            />
-          ))}
-        </GoogleMap>
+        showGoogleMap && allAccountsData.length > 0 ?
+        <div>
+          <GoogleMap
+            mapContainerStyle={{ width: '100%', height: '400px' }}
+            center={mapView.mapCenter}
+            zoom={mapView.zoomLevel}
+            onLoad={onLoadMap}
+          >
+            <Autocomplete
+              onLoad={onLoadAutocomplete}
+              onPlaceChanged={handlePlaceChanged}
+            >
+              <MapSearchInput
+                placeholder="Find Farriers' Fix near you"
+                type="text"
+              />
+            </Autocomplete>
+            {allAccountsData?.map((store) => (
+              <Marker
+                key={store.id}
+                position={{ lat: parseFloat(store.latitude), lng: parseFloat(store.longitude) }}
+                title={store.company}
+              />
+            ))}
+          </GoogleMap>
+        </div>
         :
         <div>
           <StateList>
@@ -292,17 +357,16 @@ const MapsButton = styled.button `
 `
 const MapToggle = styled.div `
   display: flex;
-  justify-content: center;
-  margin: 1rem 0;
+  justify-content: flex-end;
+  margin: 0.5rem 0;
   button {
-    // background: #242e62;
-    // color: white;
+    background: #fff;
     color: #242e62;
     border: none;
     border-radius: 5px;
-    padding: 0.5rem 1rem;
-    margin: 0 1rem;
-    font-size: 1.2em;
+    padding: 0.2rem 1rem;
+    margin: 0 0.2rem;
+    font-size: 1em;
     cursor: pointer;
     &:hover {
       background: #739ac5;
@@ -314,4 +378,15 @@ const StateButton = styled.button `
     props.showGoogleMap === false ? "underline" : "none"
   };
   
+`
+const MapSearchInput = styled.input `
+  width: 40%;
+  height: 40px;
+  padding: 0.5rem;
+  margin-top: 0.6rem;
+  margin-left: 15rem;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  position: absolute;
 `
