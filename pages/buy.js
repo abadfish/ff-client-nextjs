@@ -103,9 +103,9 @@ const Buy = () => {
   const accountList = filteredAccounts?.map((a, i) => (
     <AccountCard key={i} id={i} onClick={() => handleShowLocation(a, i)}>
       <div><h3>{a.company}</h3></div>
-      <div>{a.address1}</div>
-      <div>{a.city}, {a.state} {a.zip}</div>
-      <div>{a.phone}</div>
+      <div><span>{a.address1}</span></div>
+      <div><span>{a.city}, {a.state} {a.zip}</span></div>
+      <div><span>{a.phone}</span></div>
       <Website><span>{a.website}</span></Website>
     </AccountCard>
   ))
@@ -189,14 +189,14 @@ const Buy = () => {
     : allAccountsData;
   
     const sortedAccountList = sortedStores?.map((a, i) => (
-    <AccountCard key={i} id={i} onClick={() => handleShowLocation(a, i)}>
-      <div><h3>{a.company}</h3></div>
-      <div>{a.address1}</div>
-      <div>{a.city}, {a.state} {a.zip}</div>
-      <div>{a.phone}</div>
-      <Website><span>{a.website}</span></Website>
-    </AccountCard>
-  ));
+      <AccountCard key={i} id={i} onClick={() => handleShowLocation(a, i)}>
+        <div><h3>{a.company}</h3></div>
+        <div>{a.address1}</div>
+        <div>{a.city}, {a.state} {a.zip}</div>
+        <div>{a.phone}</div>
+        <Website><span>{a.website}</span></Website>
+      </AccountCard>
+    ));
 
   const [selectedStore, setSelectedStore] = useState(null);
 
@@ -230,7 +230,7 @@ const Buy = () => {
               onPlaceChanged={handlePlaceChanged}
             >
               <MapSearchInput
-                placeholder="Find Farriers' Fix near you"
+                placeholder="🔍  Find Farriers' Fix near you"
                 type="text"
               />
             </Autocomplete>
@@ -281,8 +281,8 @@ const Buy = () => {
           </StateList>
           { selectedAccount ?
             <Modal onClose={ () => setSelectedAccount(null) }>
-            <Map account={ selectedAccount }/>
-            <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
+              <Map account={ selectedAccount }/>
+              <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
             </Modal>
             :
             null
@@ -362,6 +362,14 @@ const AccountCard = styled.div `
   }
   @media (max-width: 480px) {
     margin: 1rem 0;
+    height: 120px;
+    margin: 10px;
+    h3 {
+      font-size: 1.2em;
+    }
+    div {
+      font-size: 0.9em;
+    }
   }
 `
 const Website = styled.div `
@@ -420,4 +428,9 @@ const MapSearchInput = styled.input `
   border: 1px solid #ccc;
   font-size: 1em;
   position: absolute;
+  @media (max-width: 480px) {
+    margin-top: 3.5rem;
+    margin-left: 0.6rem;
+    width: 90%;
+  }
 `
