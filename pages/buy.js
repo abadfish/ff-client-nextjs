@@ -3,9 +3,7 @@ import { useState, useReducer, useRef, useEffect } from 'react'
 import styled from 'styled-components'
 import { 
   GoogleMap, 
-  useLoadScript,
   useJsApiLoader,
-  DirectionsRenderer,
   Marker, 
   InfoWindow,
   Autocomplete
@@ -100,10 +98,7 @@ const Buy = () => {
     }
   }
 
-  const handleShowLocation = (a, i)=> {
-    console.log(window.innerHeight)
-    setSelectedAccount(a)
-  }
+  const handleShowLocation = (a, i)=> { setSelectedAccount(a) }
 
   const accountList = filteredAccounts?.map((a, i) => (
     <AccountCard key={i} id={i} onClick={() => handleShowLocation(a, i)}>
@@ -114,13 +109,6 @@ const Buy = () => {
       <Website><span>{a.website}</span></Website>
     </AccountCard>
   ))
-
-  const scrollToAccount = id => {
-    let el = document.getElementById(id)
-    let elRect = el.getBoundingClientRect().top
-    console.log(elRect)
-    // document.querySelector(id).scrollIntoView({behavior: 'smooth', block:'end'})
-  }
 
   const scrollToSection = section => {
     let el = document.getElementById(section);
@@ -137,22 +125,6 @@ const Buy = () => {
 
   const stateList = Array.from(new Set(allAccountsData.map(a => a.state)))
   
-  const stores = [
-    { id: 182,
-      "company": "Alabama Blue Ribbon Tack",
-      "address1": "2200 Commerce Circle",
-      "city": "Pelham",
-      "state": "AL",
-      "zip": "35124",
-      "phone": "",
-      "website": "",
-      latitude: 33.335523,
-      longitude: -86.7896608
-    },
-    { id: 1, name: 'Store A', latitude: 40.748817, longitude: -73.985428 },
-    { id: 2, name: 'Store B', latitude: 40.758817, longitude: -73.975428 },
-  ];
-
   const [showGoogleMap, setShowGoogleMap] = useState(true)
 
   const { isLoaded, loadError } = useJsApiLoader({
@@ -187,24 +159,54 @@ const Buy = () => {
 		mapRef.current.fitBounds(bounds);
     setMapView({
       mapCenter: { lat: geometry.location.lat(), lng: geometry.location.lng() },
-      zoomLevel: 8,
+      zoomLevel: 9,
     })
-	}
+	};
+  
+  const calculateDistance = (lat1, lon1, lat2, lon2) => {
+    const R = 6371;
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+    return distance;
+  };
 
-  const [selectedPlace, setSelectedPlace] = useState(null);
+  const deg2rad = (deg) => {
+    return deg * (Math.PI / 180);
+  };
+
+  const sortedStores = mapView.mapCenter.lat
+    ? [...allAccountsData].sort((a, b) => {
+        const distanceA = calculateDistance(mapView.mapCenter.lat, mapView.mapCenter.lng, a.latitude, a.longitude);
+        const distanceB = calculateDistance(mapView.mapCenter.lat, mapView.mapCenter.lng, b.latitude, b.longitude);
+        return distanceA - distanceB;
+      })
+    : allAccountsData;
+  
+    const sortedAccountList = sortedStores?.map((a, i) => (
+    <AccountCard key={i} id={i} onClick={() => handleShowLocation(a, i)}>
+      <div><h3>{a.company}</h3></div>
+      <div>{a.address1}</div>
+      <div>{a.city}, {a.state} {a.zip}</div>
+      <div>{a.phone}</div>
+      <Website><span>{a.website}</span></Website>
+    </AccountCard>
+  ));
+
+  const [selectedStore, setSelectedStore] = useState(null);
 
   if (!isLoaded || loading) return <div>Loading...</div>;
+  if (loadError) return <div>Error loading maps</div>;
+  if (error) return <div>Error loading accounts</div>;
+  if (allAccountsData.length === 0) return <div>No accounts found</div>;
 
   return (
     <Layout>
-      { selectedAccount ?
-        <Modal onClose={ () => setSelectedAccount(null) }>
-        <Map account={ selectedAccount }/>
-        <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
-        </Modal>
-        :
-        null
-      }
       <MapToggle>
         <MapsButton 
           showGoogleMap={showGoogleMap} 
@@ -215,7 +217,6 @@ const Buy = () => {
           onClick={ () => setShowGoogleMap(false) }
         >Search by state</StateButton>
       </MapToggle>
-      
       {
         showGoogleMap && allAccountsData.length > 0 ?
         <div>
@@ -239,9 +240,33 @@ const Buy = () => {
                 key={store.id}
                 position={{ lat: parseFloat(store.latitude), lng: parseFloat(store.longitude) }}
                 title={store.company}
+                onClick={() => setSelectedStore(store)}
               />
             ))}
+            {selectedStore && (
+              <InfoWindow
+                position={{ lat: parseFloat(selectedStore.latitude), lng: parseFloat(selectedStore.longitude) }}
+                onCloseClick={() => setSelectedStore(null)}
+              >
+                <div>
+                  <h3>{selectedStore.company}</h3>
+                  <p>{selectedStore.address1}</p>
+                  <p>{selectedStore.city}, {selectedStore.state} {selectedStore.zip}</p>
+                </div>
+              </InfoWindow>
+            )}
+            { selectedAccount ?
+              <Modal onClose={ () => setSelectedAccount(null) }>
+                <Map account={ selectedAccount }/>
+                <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
+              </Modal>
+              :
+              null
+            }
           </GoogleMap>
+          <AccountsPage ref={ accountsRef } id='accounts'>
+            { sortedAccountList }
+          </AccountsPage>
         </div>
         :
         <div>
@@ -255,7 +280,14 @@ const Buy = () => {
               <span >ALL</span>
             </StateDiv>
           </StateList>
-
+          { selectedAccount ?
+            <Modal onClose={ () => setSelectedAccount(null) }>
+            <Map account={ selectedAccount }/>
+            <Button onClick={ () => setSelectedAccount(null) }>Close</Button>
+            </Modal>
+            :
+            null
+          }
           <AccountsPage ref={ accountsRef } id='accounts'>
             { accountList }
           </AccountsPage>
