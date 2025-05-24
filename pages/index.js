@@ -9,33 +9,51 @@ const Home = () => {
     <Layout>
       <Content>
         <PageMessage>
-          <SectionHeading>All Natural Ingredients</SectionHeading>
-          <p>Farriers’ Fix is made with only high quality, natural ingredients that provide vitamins A, D & E – all essential for good quality hooves.  There are no fillers in this hoof oil, each ingredient used serves a specific purpose.
-          Competitors can also be assured that Farriers’ Fix Hoof Oil has tested negative under <strong><a href="https://inside.fei.org/fei/cleansport/horses" target="_blank" rel="noopener noreferrer">FEI guidelines</a></strong>.</p>
-          <Link href="/about"><More>See the full list </More></Link>
+          <SectionHeading 
+            bgColor='red' 
+            fontColor='white'
+            leftPadding='3rem'
+          >All Natural Ingredients</SectionHeading>
+          <FullWidthCard>
+            <p>Farriers’ Fix is made with only high quality, natural ingredients that provide vitamins A, D & E – all essential for good quality hooves.  There are no fillers in this hoof oil, each ingredient used serves a specific purpose.
+            Competitors can also be assured that Farriers’ Fix Hoof Oil has tested negative under <strong><a href="https://inside.fei.org/fei/cleansport/horses" target="_blank" rel="noopener noreferrer">FEI guidelines</a></strong>.</p>
+            <Link href="/about"><More>See the full list </More></Link>
+          </FullWidthCard>
         </PageMessage>
         <CardRowLeft>
           <Link href="/about">
             <Card>
-              <SectionHeading>Developed by Farriers, for Farriers</SectionHeading>
-              <p>The formula was originally developed for use by farriers to treat common hoof problems encountered in many horses, such as soreness, thrush, soft or brittle hoof composition, founder (laminitis), quarter cracks and white line disease.  Experiments with various ingredients to form a topical solution led to the development of what is now called Farriers’ Fix Hoof Oil. </p>
-              <More>More about Farriers' Fix origins</More>
+              <SectionHeading 
+                bgColor='#242e62' 
+                fontColor='white'
+                leftPadding='3rem'
+                >Developed by Farriers, for Farriers</SectionHeading>
+              <SectionContent>
+                <p>The formula was originally developed for use by farriers to treat common hoof problems encountered in many horses, such as soreness, thrush, soft or brittle hoof composition, founder (laminitis), quarter cracks and white line disease.  Experiments with various ingredients to form a topical solution led to the development of what is now called Farriers’ Fix Hoof Oil. </p>
+                <More>More about Farriers' Fix origins</More>
+              </SectionContent>
             </Card>
           </Link>
           <ImageCard>
-            <img src="https://res.cloudinary.com/abadfish/image/upload/v1606877360/ffix/2010_2119_Barn.jpg" alt="barn scene"/>
+            <img src="https://res.cloudinary.com/abadfish/image/upload/v1748127757/can_jug_grooming_fxiy6b.jpg" alt="barn scene"/>
           </ImageCard>
         </CardRowLeft>
         <CardRowRight>
           <Link href="/usage">
             <Card>
-              <SectionHeading>Countless Benefits</SectionHeading>
-              <CardSpan><strong>FIX SORENESS </strong>
-              The unique blend of ingredients in Farriers’ Fix penetrates the hoof capsule to draw out soreness. In many cases, horses that were suffering from stone bruises or trimmed too short, were actually rideable the next day. </CardSpan>
-              <CardSpan><strong>FIX DRY, CRACKED HOOVES </strong>
-              Many hoof oils are petroleum or lacquer based and seal in or seal out moisture. The all natural ingredients in Farriers’ Fix balance the moisture content and allow the hoof to breathe, which is essential for a healthy hoof.</CardSpan>
-              <br />
-              <More>See more benefits</More>
+              <SectionHeading 
+              bgColor='#242e62' 
+              fontColor='white'
+              leftPadding='3rem'
+              >Countless Benefits</SectionHeading>
+              <SectionContent>
+                <CardSpan><strong>FIX SORENESS </strong>
+                The unique blend of ingredients in Farriers’ Fix penetrates the hoof capsule to draw out soreness. In many cases, horses that were suffering from stone bruises or trimmed too short, were actually rideable the next day. </CardSpan>
+                <CardSpan><strong>FIX DRY, CRACKED HOOVES </strong>
+                Many hoof oils are petroleum or lacquer based and seal in or seal out moisture. The all natural ingredients in Farriers’ Fix balance the moisture content and allow the hoof to breathe, which is essential for a healthy hoof.</CardSpan>
+                <br />
+                <More>See more benefits</More>
+              </SectionContent>
             </Card>
           </Link>
         </CardRowRight>
@@ -50,12 +68,9 @@ export const Content = styled.section `
   width: 100%;
 `
 export const More = styled.span `
-  width: 250px;
   font-size: 150%;
   font-weight: 600;
-  padding-top: .7rem;
   /* color: #739ac5; */
-  /* background-image: linear-gradient(to left, #242e62, red); */
   background-image: linear-gradient(to left, red, red);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -63,7 +78,6 @@ export const More = styled.span `
   -webkit-transition: background-image 500ms cubic-bezier(0, 0, 0.53, 0.54);
   &:hover {
     background-image: linear-gradient(to left, #a50000, #a50000);
-    /* background-image: linear-gradient(to left, red, #242e62); */
     cursor: pointer;
   }
   @media (max-width: 768px) {
@@ -77,14 +91,10 @@ export const PageMessage = styled.div `
   min-height: 300px;
   background: #f3f3f3;
   color: #242e62;
-  padding: 3rem 4rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
   text-align: left;
-  p {
-    font-size: 140%;
-  }
   a {
     &:hover {
       cursor: pointer;
@@ -92,7 +102,6 @@ export const PageMessage = styled.div `
     }
   }
   @media (max-width: 768px) {
-    padding: 2rem 1.45rem;
     p {
       font-size: 120%;
     }
@@ -100,13 +109,16 @@ export const PageMessage = styled.div `
 `
 export const SectionHeading = styled.header `
   font-family: 'Sorts Mill Goudy', serif;
-  color: #242e62;
+  color: ${props => props.fontColor ?? '#242e62'};
+  background: ${props => props.bgColor ?? 'transparent'};
   text-align: left;
   font-size: 300%;
   font-weight: 600;
-  padding-bottom: 1.25rem;
+  padding-left: ${props => props.leftPadding ?? 0};
+  padding-top: 0.5rem;
   @media (max-width: 768px) {
-    font-size: 170%;
+    font-size: 200%;
+    padding-left: 1.45rem;
   }
 `
 const CardSpan = styled.span `
@@ -143,17 +155,36 @@ export const CardRowLeft = styled.div `
   }
 
 `
-export const Card = styled.div `
-  width: 50%;
-  clear: both;
-  min-height: 400px;
-  background-color: rgba(255,255,255,1);
-  padding: 3rem 4rem;
+export const FullWidthCard = styled.div `
+  width: 100%;
+  background-color: #f3f3f3;
+  padding: 3rem;
   color: #242e62;
   text-align: left;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+	text-decoration: none;
+  p {
+    font-size: 140%;
+    text-align: left;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 2rem 1.45rem;
+
+  }
+`
+export const Card = styled.div `
+  width: 50%;
+  clear: both;
+  min-height: 300px;
+  background-color: rgba(255,255,255,1);
+  color: #242e62;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 	text-decoration: none;
   transition: transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-transform 200ms cubic-bezier(0.4, 1, 0.75, 0.9), -webkit-box-shadow 200ms cubic-bezier(0.4, 1, 0.75, 0.9);
   &:hover {
@@ -163,6 +194,22 @@ export const Card = styled.div `
   }
   p {
     font-size: 120%;
+    text-align: left;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`
+export const SectionContent = styled.div `
+  padding: 3rem;
+  color: #242e62;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+	text-decoration: none;
+  p {
+    font-size: 140%;
     text-align: left;
   }
   @media (max-width: 768px) {
@@ -182,8 +229,3 @@ export const ImageCard = styled.div `
     display: none;
   }
 `
-// img {
-//   width: 200%;
-//   margin-left: 50%;
-//   transform: translateX(-50%);
-// }
