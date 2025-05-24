@@ -13,12 +13,13 @@ const Header = (props) => {
   const nailing = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on-landscape.png"
   const walking = "https://res.cloudinary.com/abadfish/image/upload/v1612571156/ffix/horse_walking.jpg"
   const nose = "https://res.cloudinary.com/abadfish/image/upload/v1614555451/ffix/nose-touch.jpg"
+  const shoeWithProduct = "https://res.cloudinary.com/abadfish/image/upload/v1748124063/painting_sole_2_hz7tpb.jpg"
 
   const headerContent = () => {
     switch (router.pathname) {
       case '/':
         return {
-          image: nailing,
+          image: shoeWithProduct,
           heading: "Farriers' Fix",
           subHeading: "Hoof Oil",
           tagLine: "Fix sore feet and toughen hooves",
@@ -98,14 +99,13 @@ const HeaderComponent = styled.section `
 const HeaderWrapper = styled.div`
   background-image: url(${props => props.headerImage});
   background-size: cover;
-  // background-attachment: fixed;
   background-repeat: no-repeat;
-  // background-position: center;
   overflow: hidden;
   h1 {
     font-size: 550%;
     font-weight: 400;
     font-family: 'Sorts Mill Goudy', serif;
+    line-height: 1;
     img {
       height: 175px;
     }
@@ -114,6 +114,7 @@ const HeaderWrapper = styled.div`
     font-family: 'Sorts Mill Goudy', serif;
     font-size: 300%;
     font-weight: 400;
+    padding-top: 1rem;
   }
   h3 {
     color: #d3d3d3;
@@ -136,9 +137,9 @@ const HeaderWrapper = styled.div`
 `
 
 const HeaderOverlay = styled.div `
-  height: 100%;
+  height: 5%;
   width: 100%;
-  background-color: rgba(3,3,3, 0.5);
+  background-color: rgba(3,3,3, 0.2);
 `
 const HeaderContainer = styled.div`
   margin: 0 auto;

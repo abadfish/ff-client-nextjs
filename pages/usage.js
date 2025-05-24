@@ -1,7 +1,15 @@
 import { useRef } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
-import { Content, PageMessage, SectionHeading, CardRowLeft, CardRowRight, More } from './index'
+import { 
+  Content, 
+  PageMessage, 
+  SectionHeading, 
+  CardRowLeft, 
+  CardRowRight, 
+  More,
+  FullWidthCard,
+} from './index'
 import { scrollToRef } from './about'
 
 const Benefits = () => {
@@ -12,9 +20,15 @@ const Benefits = () => {
         <Layout>
           <Content>
             <PageMessage>
-              <SectionHeading>For daily use or therapeutic application.</SectionHeading>
-              <p>Farriers’ Fix Hoof Oil is a topical treatment that benefits the entire hoof from the coronary band to the sole and frog. Whether your horse has an existing hoof issue or you're in need of a general maintenance dressing that looks and smells great, Farriers' Fix has benefits abound. </p>
-              <More onClick={() => scrollToRef(benefitRef)}>See the list</More>
+              <SectionHeading 
+                bgColor='#242e62' 
+                fontColor='white'
+                leftPadding='3rem'
+              >For daily use or therapeutic application.</SectionHeading>
+              <FullWidthCard>
+                <p>Farriers’ Fix Hoof Oil is a topical treatment that benefits the entire hoof from the coronary band to the sole and frog. Whether your horse has an existing hoof issue or you're in need of a general maintenance dressing that looks and smells great, Farriers' Fix has benefits abound. </p>
+                <More onClick={() => scrollToRef(benefitRef)}>See the list</More>
+              </FullWidthCard>
             </PageMessage>
 						<UsageContainer>
 							<CardRowLeft>

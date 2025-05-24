@@ -2,7 +2,15 @@
 import { useRef } from 'react'
 import Layout from '../components/Layout'
 import styled from 'styled-components'
-import { Content, PageMessage, SectionHeading, CardRowLeft, CardRowRight, More } from './index'
+import { 
+  Content, 
+  PageMessage, 
+  SectionHeading, 
+  CardRowLeft, 
+  CardRowRight, 
+  More,
+  FullWidthCard,
+} from './index'
 import HeaderSubComponent from '../components/HeaderSubComponent'
 import { server } from '../config'
 
@@ -77,8 +85,10 @@ const About = ({endorsementData}) => {
         <Layout>
           <Content>
             <PageMessage>
+              <FullWidthCard>
               <p><i>"Initially, we were attracted to the ingredients in Farriers’ Fix Hoof Oil. With that combination, how could it not be good for the hoof? Since using the oil on a regular basis, we’ve noticed an improvement in the quality of the hoof wall. Now, it’s a staple in our program." <strong>-Anne Kursinski, Five-time USET Show Jumping Olympian</strong></i></p>
               <More onClick={() => scrollToRef(endorsementRef)}>See more like this</More>
+              </FullWidthCard>
             </PageMessage>
             <Ingredients>
               <HeaderSubComponent />

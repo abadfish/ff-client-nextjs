@@ -14,6 +14,7 @@ const Layout = ({ children }) => {
   const image3 = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/healthy-hoof-on-stand.jpg"
   const nailing = "https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/nailing-shoe-on-cropped.jpg"
   const image4 = "https://res.cloudinary.com/abadfish/image/upload/v1606877360/ffix/2010_2119_Barn.jpg"
+  const image5 = "https://res.cloudinary.com/abadfish/image/upload/v1748127757/can_jug_grooming_fxiy6b.jpg"
 
   const bgImage = () => {
     switch (router.pathname) {
