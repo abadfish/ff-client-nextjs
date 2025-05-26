@@ -24,7 +24,7 @@ const Benefits = () => {
                 bgColor='#242e62' 
                 fontColor='white'
                 leftPadding='3rem'
-              >For daily use or therapeutic application.</SectionHeading>
+              >For daily use or therapeutic application</SectionHeading>
               <FullWidthCard>
                 <p>Farriers’ Fix Hoof Oil is a topical treatment that benefits the entire hoof from the coronary band to the sole and frog. Whether your horse has an existing hoof issue or you're in need of a general maintenance dressing that looks and smells great, Farriers' Fix has benefits abound. </p>
                 <More onClick={() => scrollToRef(benefitRef)}>See the list</More>
@@ -33,9 +33,11 @@ const Benefits = () => {
 						<UsageContainer>
 							<CardRowLeft>
 								<UsageCard width='40%'>
-									<SectionHeading>For horses with hoof issues:</SectionHeading>
-									<p>To treat sore feet, quarter cracks, laminitis, or thrush, apply Farriers’ Fix Hoof Oil to clean and dry hoof exterior, sole and frog daily for best results.
-									Allow 5-10 minutes for hoof to absorb oil before returning to stall.</p>
+                  <SectionHeading leftPadding='3rem'>For hoof issues</SectionHeading>
+                  <UsageCardContent>
+                    <p>To treat sore feet, quarter cracks, laminitis, or thrush, apply Farriers’ Fix Hoof Oil to clean and dry hoof exterior, sole and frog daily for best results.
+                    Allow 5-10 minutes for hoof to absorb oil before returning to stall.</p>
+                  </UsageCardContent>
 								</UsageCard>
 								<UsageCard width='50%'>
 									<img src="https://res.cloudinary.com/abadfish/image/upload/v1614555452/ffix/canter.jpg" alt="hoof issues"/>
@@ -46,14 +48,20 @@ const Benefits = () => {
 									<img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/packing.jpg" alt="packing a hoof"/>
 								</UsageCard>
 								<UsageCard width='40%'>
-									<SectionHeading>For use under pads:</SectionHeading>
-									<p>Using Farriers’ Fix under the pads helps to prevent thrush and other bacteria from forming. By painting the sole and frog and saturating the packing with Farriers’ Fix, the oil will feed into the hoof rather than wick it away. Leather pads do not break down as fast when saturated with Farriers’ Fix.</p>
+									<SectionHeading leftPadding='3rem'>Use under pads</SectionHeading>
+                  <UsageCardContent>
+                    <p>Using Farriers’ Fix under the pads helps to prevent thrush and other bacteria from forming. By painting the sole and frog and saturating the packing with Farriers’ Fix, the oil will feed into the hoof rather than wick it away. Leather pads do not break down as fast when saturated with Farriers’ Fix.</p>
+                  </UsageCardContent>
 								</UsageCard>
 							</CardRowRight>
 						</UsageContainer>
           </Content>
           <UsageListSection ref={ benefitRef }>
-            <SectionHeading>Fixes...</SectionHeading>
+            <SectionHeading
+              bgColor='red' 
+              fontColor='white'
+              leftPadding='3rem'
+            >Fixes</SectionHeading>
             <UsageList>
               <h2>SORENESS</h2>
               <span>The unique blend of ingredients in Farriers’ Fix penetrates the hoof capsule to draw out soreness. In many cases, horses that were suffering from stone bruises or trimmed too short, were actually rideable the next day. It’s an ideal treatment for horses that are racing, jumping and working on adverse surfaces.</span>
@@ -81,19 +89,26 @@ const Benefits = () => {
 export default Benefits
 
 const UsageContainer = styled.div `
-	margin: 5%;
+	margin: 2rem 0;
+`
+const UsageCardContent = styled.div `
+  padding: 3rem;
+  p {
+    font-size: 140%;
+    text-align: left;
+  }
+  @media (max-width: 768px) {
+    padding: 2rem 1.45rem;
+    min-height: 150px;
+  }
+
 `
 const UsageCard = styled.div `
   width: ${props => props.width};
   min-height: 400px;
   background-color: rgba(255,255,255,1);
-  padding: 3rem;
   color: #242e62;
   text-align: left;
-  p {
-    font-size: 140%;
-    text-align: left;
-  }
   img {
     position: relative;
     width: 100%;
@@ -103,9 +118,9 @@ const UsageCard = styled.div `
   }
   @media (max-width: 768px) {
     width: 100%;
-    padding: 2rem 1.45rem;
     min-height: 150px;
   }
+
 `
 
 const UsageListSection = styled.section `
@@ -114,14 +129,14 @@ const UsageListSection = styled.section `
   flex-direction: column;
   min-height: 600px;
   width: 100vw;
-  padding: 3rem 8rem;
   text-align: left;
   clear: both;
+`
+const UsageList = styled.div `
+  padding: 3rem 8rem;
   @media (max-width: 768px) {
     padding: 2rem 1.45rem;
   }
-`
-const UsageList = styled.div `
   h2 {
     margin-top: 2rem;
     color: #242e62;

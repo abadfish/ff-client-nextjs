@@ -23,11 +23,10 @@ const Home = () => {
         <CardRowLeft>
           <Link href="/about">
             <Card>
-              <SectionHeading 
-                bgColor='#242e62' 
-                fontColor='white'
+              <SectionHeading
                 leftPadding='3rem'
-                >Developed by Farriers, for Farriers</SectionHeading>
+                topPadding='3rem'
+              >Developed by Farriers, for Farriers</SectionHeading>
               <SectionContent>
                 <p>The formula was originally developed for use by farriers to treat common hoof problems encountered in many horses, such as soreness, thrush, soft or brittle hoof composition, founder (laminitis), quarter cracks and white line disease.  Experiments with various ingredients to form a topical solution led to the development of what is now called Farriers’ Fix Hoof Oil. </p>
                 <More>More about Farriers' Fix origins</More>
@@ -42,9 +41,9 @@ const Home = () => {
           <Link href="/usage">
             <Card>
               <SectionHeading 
-              bgColor='#242e62' 
-              fontColor='white'
-              leftPadding='3rem'
+                bgColor='#242e62' 
+                fontColor='white'
+                leftPadding='3rem'
               >Countless Benefits</SectionHeading>
               <SectionContent>
                 <CardSpan><strong>FIX SORENESS </strong>
@@ -88,7 +87,7 @@ export const More = styled.span `
 `
 export const PageMessage = styled.div `
   width: 100%;
-  min-height: 300px;
+  min-height: 200px;
   background: #f3f3f3;
   color: #242e62;
   display: flex;
@@ -115,10 +114,11 @@ export const SectionHeading = styled.header `
   font-size: 300%;
   font-weight: 600;
   padding-left: ${props => props.leftPadding ?? 0};
-  padding-top: 0.5rem;
+  padding-top: ${props => props.topPadding ?? '0.5rem'};
   @media (max-width: 768px) {
-    font-size: 200%;
+    font-size: 240%;
     padding-left: 1.45rem;
+    font-weight: 600;
   }
 `
 const CardSpan = styled.span `
