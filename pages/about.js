@@ -98,14 +98,18 @@ const About = ({endorsementData}) => {
                 <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/paul.jpg" alt='Paul Heller shoeing'/>
               </AboutCard>
               <AboutCard>
-                <SectionHeading>Developed by Farriers, for Farriers</SectionHeading>
-                <p>"I originally developed this product to sell to other farriers. Like most farriers, I have always encountered the basic problems found in many horses – sore feet, thrush, feet that are either too soft or too hard and brittle, founder (laminitis), quarter cracks and white line disease. I started looking for a topical treatment and experimented with various ingredients until I came up with what I now call Farriers’ Fix Hoof Oil."</p>
+                <SectionHeading leftPadding='3rem'>Developed by Farriers, for Farriers</SectionHeading>
+                <AboutContent>
+                  <p>"I originally developed this product to sell to other farriers. Like most farriers, I have always encountered the basic problems found in many horses – sore feet, thrush, feet that are either too soft or too hard and brittle, founder (laminitis), quarter cracks and white line disease. I started looking for a topical treatment and experimented with various ingredients until I came up with what I now call Farriers’ Fix Hoof Oil."</p>
+                </AboutContent>
               </AboutCard>
             </CardRowLeft>
             <CardRowRight>
               <AboutCard>
-                <SectionHeading>Paul Heller, Farrier</SectionHeading>
-                <p>Paul has worked as a farrier in Westchester County, New York, since 1972. He primarily shoes USEF “A” Circuit Hunters and, Jumpers as well as upper-level Dressage and Event horses, but prides himself on staying close to his roots, shoeing trail and hunt horses and those living happily in backyards!</p>
+                <SectionHeading leftPadding='3rem'>Paul Heller, Farrier</SectionHeading>
+                <AboutContent>
+                  <p>Paul has worked as a farrier in Westchester County, New York, since 1972. He primarily shoes USEF “A” Circuit Hunters and, Jumpers as well as upper-level Dressage and Event horses, but prides himself on staying close to his roots, shoeing trail and hunt horses and those living happily in backyards!</p>
+                </AboutContent>
               </AboutCard>
               <AboutCard>
                 <img src="https://res.cloudinary.com/abadfish/image/upload/v1606864735/ffix/paul2.jpg" alt='Paul Heller shoeing'/>
@@ -136,7 +140,6 @@ export const AboutCard = styled.div `
   width: 50%;
   min-height: 450px;
   background-color: rgba(255,255,255,1);
-  padding: 3rem;
   color: #242e62;
   text-align: left;
   p {
@@ -156,6 +159,13 @@ export const AboutCard = styled.div `
     min-height: 200px;
   }
 `
+const AboutContent = styled.div `
+  padding: 3rem;
+  @media (max-width: 768px) {
+    padding: 2rem 1.45rem;
+  }
+`
+
 const EndorsementSection = styled.section `
   margin-top: 2rem;
   padding: 0 3rem;
