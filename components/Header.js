@@ -112,8 +112,9 @@ const HeaderWrapper = styled.div`
   }
   h2 {
     font-family: 'Sorts Mill Goudy', serif;
-    font-size: 300%;
-    font-weight: 400;
+    font-size: 350%;
+    line-height: 1.2;
+    font-weight: 600;
     padding-top: 1rem;
   }
   h3 {
